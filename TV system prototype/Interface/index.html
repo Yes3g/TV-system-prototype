@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TV System Prototype</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>TV System Prototype</h1>
+    <nav class="actions">
+      <button id="refreshBtn" class="btn">Obnovit</button>
+    </nav>
+  </header>
+
+  <main class="two-columns">
+    <!-- 1) CHANNEL SURFING -->
+    <aside class="panel channels-panel">
+      <h2>Channel Surfing</h2>
+      <div id="channels" class="channel-list"></div>
+    </aside>
+
+    <!-- 2) TV PROGRAMS ON A CHANNEL -->
+    <section class="panel programs-panel">
+      <h2 id="programsTitle">Programs of a Channel</h2>
+
+      <!-- Livestreamy (volitelné) -->
+      <div class="livestreams">
+        <h3>Livestreams (optional)</h3>
+        <div id="livestreamButtons" class="live-grid">
+          <!-- dynamicky -->
+        </div>
+        <div id="liveStatus" class="live-status"></div>
+
+        <div class="player">
+          <video id="liveVideo" controls preload="metadata" width="100%">
+            <source src="" type="video/mp4" />
+            Tvůj prohlížeč nepodporuje video tag.
+          </video>
+          <div class="live-controls">
+            <button id="stopLiveBtn" class="btn danger">Ukončit livestream</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- On-demand shows (VOD) -->
+      <div class="vod">
+        <h3>On-Demand Shows</h3>
+        <div id="shows" class="vod-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
