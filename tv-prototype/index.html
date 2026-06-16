@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NetVision Prototype</title>
+    <link rel="stylesheet" href="styles.css?v=20260609-subtitles">
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="rail" aria-label="NetVision navigation">
+        <div class="brand-mark">NV</div>
+        <button class="rail-button is-active" type="button" title="Channel surfing" aria-label="Channel surfing">⌁</button>
+        <button class="rail-button" type="button" title="Favorites" aria-label="Favorites">★</button>
+        <button class="rail-button" type="button" title="Discovery" aria-label="Discovery">⌕</button>
+        <button class="rail-button" type="button" title="Profile" aria-label="Profile">●</button>
+      </aside>
+
+      <section class="player-panel" aria-label="Player">
+        <div class="topbar">
+          <div>
+            <p class="eyebrow">NetVision</p>
+            <h1 id="screenTitle">Channel Surfing</h1>
+          </div>
+          <div class="top-actions">
+            <select id="loginSelect" aria-label="Log in"></select>
+            <time id="clock">--:--</time>
+          </div>
+        </div>
+
+        <div class="screen" id="screen">
+          <video id="videoPlayer" controls playsinline></video>
+          <div class="screen-copy">
+            <p class="channel-kicker" id="channelKicker">Loading</p>
+            <h2 id="programTitle">NetVision</h2>
+            <p id="programDescription">Loading media...</p>
+          </div>
+        </div>
+
+        <div class="player-meta">
+          <div>
+            <p class="label">Playing</p>
+            <strong id="episodeTitle">--</strong>
+          </div>
+          <div>
+            <p class="label">Mode</p>
+            <strong id="playMode">--</strong>
+          </div>
+          <div>
+            <p class="label">Personal score</p>
+            <strong id="matchScore">--</strong>
+          </div>
+          <div>
+            <p class="label">Subtitles</p>
+            <strong id="subtitleStatus">Off</strong>
+          </div>
+          <div>
+            <p class="label">Audio</p>
+            <strong id="audioStatus">Original</strong>
+          </div>
+        </div>
+
+        <div class="control-strip" aria-label="Player options">
+          <div class="control-title">
+            <p class="eyebrow">Playback options</p>
+            <strong>Subtitles and dubbing</strong>
+          </div>
+          <label>
+            Subtitles
+            <select id="subtitleSelect">
+              <option value="off">Off</option>
+              <option value="en">English</option>
+              <option value="cs">Czech</option>
+            </select>
+          </label>
+          <label>
+            Dubbing
+            <select id="audioSelect">
+              <option value="original">Original</option>
+              <option value="cz-dub">Czech dub</option>
+            </select>
+          </label>
+          <label class="checkbox-label">
+            <input id="autoplayToggle" type="checkbox">
+            Autoplay
+          </label>
+        </div>
+      </section>
+
+      <section class="browser-panel" aria-label="Channels and programs">
+        <section>
+          <div class="section-heading">
+            <h2>Search</h2>
+            <span id="searchCount">all</span>
+          </div>
+          <input id="searchInput" class="search-input" type="search" placeholder="Search channels, shows, episodes">
+        </section>
+
+        <section>
+          <div class="section-heading">
+            <h2>Channels</h2>
+            <span id="userBadge">Alex</span>
+          </div>
+          <div class="channel-list" id="channelList"></div>
+        </section>
+
+        <section class="live-section">
+          <div class="section-heading">
+            <h2 id="channelTitle">Programs</h2>
+            <span id="regionStatus">--</span>
+          </div>
+          <div class="live-list" id="liveList"></div>
+        </section>
+
+        <section>
+          <div class="section-heading">
+            <h2>Shows</h2>
+            <span id="showCount">0</span>
+          </div>
+          <div class="show-grid" id="showGrid"></div>
+        </section>
+
+        <section>
+          <div class="section-heading">
+            <h2>For you</h2>
+            <span>personalized</span>
+          </div>
+          <div class="recommendation-list" id="recommendationList"></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="data/db.js?v=20260609-subtitles"></script>
+    <script src="app.js?v=20260609-subtitles"></script>
+  </body>
+</html>
