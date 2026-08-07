@@ -48,10 +48,12 @@ It contains users, channels, programs, episodes, media assets, schedule items, g
 
 ## Local Video Files
 
-The Local Archive TV channel uses copyright-free MP4 files from:
+For a fully portable package, put the copyright-free MP4 files into:
 
 ```text
-/Users/Yes3g/Downloads
+tv-prototype/media/
 ```
 
-Those videos are not copied into the ZIP because they are very large. Keep them in Downloads, or update `data/db.json` and `data/db.js` if you move them.
+Use the exact filenames listed in `media/PUT_VIDEOS_HERE.txt`.
+
+The videos are not copied into the ZIP because they are very large. If the media files are missing, NetVision will still load and use sample fallback videos.

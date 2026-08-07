@@ -2,7 +2,9 @@ const state = {
   db: null,
   activeChannelId: null,
   currentEpisodeId: null,
-  searchQuery: ""
+  searchQuery: "",
+  currentMediaId: null,
+  usingFallback: false
 };
 
 const STORAGE_KEY = "netvision-prototype-state";
@@ -142,6 +144,8 @@ function playEpisode(episodeId, mode = "on demand") {
   state.currentEpisodeId = episodeId;
   const { episode, program, channel, media } = episodeBundle(episodeId);
   const score = Math.round(scoreProgram(program) * 100);
+  state.currentMediaId = media.id;
+  state.usingFallback = false;
 
   document.documentElement.style.setProperty("--accent", channel.accent);
   els.screenTitle.textContent = channel.name;
@@ -152,7 +156,7 @@ function playEpisode(episodeId, mode = "on demand") {
   els.playMode.textContent = mode;
   els.matchScore.textContent = `${score}%`;
 
-  if (els.videoPlayer.src !== media.src) {
+  if (els.videoPlayer.getAttribute("src") !== media.src) {
     els.videoPlayer.poster = media.poster;
     els.videoPlayer.src = media.src;
     installSubtitleTracks(media);
@@ -163,6 +167,15 @@ function playEpisode(episodeId, mode = "on demand") {
   }
 
   render();
+}
+
+function handleMediaError() {
+  if (!state.currentEpisodeId || state.usingFallback) return;
+  const { media } = episodeBundle(state.currentEpisodeId);
+  if (!media.fallbackSrc) return;
+  state.usingFallback = true;
+  els.videoPlayer.src = media.fallbackSrc;
+  els.programDescription.textContent = `${els.programDescription.textContent} Local media file is missing, so NetVision is using a sample fallback.`;
 }
 
 function installSubtitleTracks(media) {
@@ -357,6 +370,8 @@ function renderLogin() {
 }
 
 function bindControls() {
+  els.videoPlayer.addEventListener("error", handleMediaError);
+
   els.loginSelect.addEventListener("change", () => {
     state.db.currentUserId = els.loginSelect.value;
     const user = currentUser();
