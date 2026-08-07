@@ -407,7 +407,7 @@ function bindControls() {
 }
 
 async function init() {
-  if (location.protocol === "file:" && window.NETVISION_DB) {
+  if (window.NETVISION_DB) {
     state.db = window.NETVISION_DB;
   } else {
     try {

@@ -3,8 +3,493 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>NetVision Prototype</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>NetVision Prototype - Standalone</title>
+    <style>
+:root {
+  color-scheme: dark;
+  --bg: #101114;
+  --panel: #1b1d22;
+  --panel-2: #24272d;
+  --text: #f5f2ea;
+  --muted: #a9adb6;
+  --line: #343842;
+  --accent: #d4473f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button {
+  border: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1.25fr) minmax(380px, 0.75fr);
+  min-height: 100vh;
+}
+
+.rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 12px;
+  border-right: 1px solid var(--line);
+  background: #15171b;
+}
+
+.brand-mark,
+.rail-button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+}
+
+.brand-mark {
+  background: var(--text);
+  color: #111318;
+  font-weight: 900;
+}
+
+.rail-button {
+  background: transparent;
+  color: var(--muted);
+  font-size: 1.2rem;
+}
+
+.rail-button.is-active {
+  background: var(--panel-2);
+  color: var(--text);
+}
+
+.player-panel,
+.browser-panel {
+  min-width: 0;
+  padding: clamp(18px, 3vw, 34px);
+}
+
+.player-panel {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  background: #121316;
+}
+
+.browser-panel {
+  display: grid;
+  align-content: start;
+  gap: 22px;
+  max-height: 100vh;
+  overflow: auto;
+  border-left: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.topbar,
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.eyebrow,
+.label,
+.section-heading span,
+small {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 0;
+  font-size: clamp(1.7rem, 3vw, 3.2rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+#clock,
+#userBadge,
+#regionStatus,
+#showCount,
+#searchCount,
+select,
+.search-input {
+  min-height: 34px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #202329;
+  color: var(--text);
+}
+
+.search-input {
+  width: 100%;
+  min-height: 44px;
+  outline: 0;
+}
+
+.search-input:focus,
+select:focus {
+  border-color: color-mix(in srgb, var(--accent), white 20%);
+}
+
+.screen {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #30333a;
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 80% 16%, color-mix(in srgb, var(--accent), white 12%) 0, transparent 30%),
+    linear-gradient(135deg, color-mix(in srgb, var(--accent), black 35%), #111318 65%);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+}
+
+#videoPlayer {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #07080a;
+}
+
+.screen-copy {
+  display: grid;
+  gap: 6px;
+  padding: 18px;
+  border-top: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.38);
+}
+
+.screen-copy h2 {
+  margin: 0;
+  font-size: clamp(1.5rem, 4vw, 3.8rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.screen-copy p:last-child {
+  max-width: 720px;
+  margin-bottom: 0;
+  color: #e7e2d8;
+  line-height: 1.5;
+}
+
+.player-meta {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.control-strip {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  border: 1px solid color-mix(in srgb, var(--accent), var(--line) 60%);
+  border-radius: 8px;
+  padding: 10px;
+  background: color-mix(in srgb, var(--accent), #15171b 88%);
+}
+
+.control-title {
+  display: grid;
+  align-content: center;
+  gap: 4px;
+  min-height: 76px;
+  padding: 12px;
+}
+
+.control-title strong {
+  line-height: 1.2;
+}
+
+.control-strip label {
+  display: grid;
+  gap: 8px;
+  min-height: 76px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #202329;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.control-strip select {
+  width: 100%;
+  min-width: 0;
+  background: #15171b;
+}
+
+.checkbox-label {
+  align-content: center;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+}
+
+.checkbox-label input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
+.player-meta > div,
+.live-card,
+.recommendation {
+  min-height: 82px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #202329;
+}
+
+.player-meta strong,
+.recommendation strong {
+  display: block;
+  margin-top: 8px;
+  line-height: 1.25;
+}
+
+.channel-list,
+.live-list,
+.recommendation-list {
+  display: grid;
+  gap: 8px;
+}
+
+.channel-button {
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #202329;
+  text-align: left;
+}
+
+.channel-button.is-active {
+  border-color: color-mix(in srgb, var(--accent), white 25%);
+  background: #292d35;
+}
+
+.swatch {
+  width: 10px;
+  height: 42px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.channel-name {
+  display: block;
+  font-weight: 850;
+}
+
+.channel-tagline {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.live-list {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.live-card {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  text-align: left;
+}
+
+.live-card.is-live {
+  border-color: color-mix(in srgb, var(--accent), white 20%);
+  background: color-mix(in srgb, var(--accent), #202329 82%);
+}
+
+.live-card span {
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.show-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.show-card {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  min-height: 112px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #202329;
+  text-align: left;
+}
+
+.show-card.is-playing {
+  border-color: color-mix(in srgb, var(--accent), white 20%);
+}
+
+.thumb {
+  display: grid;
+  place-items: center;
+  width: 88px;
+  aspect-ratio: 4 / 3;
+  border-radius: 6px;
+  background-color: #111318;
+  background-position: center;
+  background-size: cover;
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.thumb.no-poster {
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent), #111318 45%), #111318);
+}
+
+.show-copy strong,
+.show-copy small {
+  display: block;
+}
+
+.show-copy strong {
+  overflow: hidden;
+  line-height: 1.25;
+}
+
+.show-copy small {
+  margin-top: 8px;
+}
+
+.recommendation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  text-align: left;
+}
+
+.recommendation small {
+  display: block;
+  margin-top: 5px;
+}
+
+.empty-state {
+  margin: 0;
+  padding: 14px;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+}
+
+@media (max-width: 1080px) {
+  .app-shell {
+    grid-template-columns: 64px 1fr;
+  }
+
+  .browser-panel {
+    grid-column: 2;
+    max-height: none;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 680px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .rail {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    flex-direction: row;
+    justify-content: space-between;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .player-panel,
+  .browser-panel {
+    padding: 16px;
+  }
+
+  .browser-panel {
+    grid-column: 1;
+  }
+
+  .player-meta,
+  .control-strip,
+  .live-list,
+  .show-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .top-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+    </style>
   </head>
   <body>
     <main class="app-shell">
@@ -130,7 +615,1480 @@
       </section>
     </main>
 
-    <script src="data/db.js"></script>
-    <script src="app.js"></script>
+    <script>
+window.NETVISION_DB = {
+  "currentUserId": "user-1",
+  "users": [
+    {
+      "id": "user-1",
+      "name": "Alex",
+      "homeRegion": "Prague",
+      "allowedRegions": [
+        "cz-national",
+        "prague"
+      ],
+      "favoriteChannelIds": [
+        "local-archive",
+        "ct1",
+        "nova"
+      ],
+      "favoriteProgramIds": [
+        "program-newsroom",
+        "program-repair",
+        "program-moviola"
+      ],
+      "settings": {
+        "subtitles": "off",
+        "audio": "original",
+        "autoplay": false
+      },
+      "genreWeights": {
+        "news": 0.95,
+        "documentary": 0.8,
+        "comedy": 0.55,
+        "sports": 0.35,
+        "kids": 0.2,
+        "archive": 0.9
+      }
+    },
+    {
+      "id": "user-2",
+      "name": "Mia",
+      "homeRegion": "Prague",
+      "allowedRegions": [
+        "cz-national",
+        "prague"
+      ],
+      "favoriteChannelIds": [
+        "local-archive",
+        "cartoon",
+        "nova"
+      ],
+      "favoriteProgramIds": [
+        "program-cartoons",
+        "program-fun-live",
+        "program-moviola"
+      ],
+      "settings": {
+        "subtitles": "cs",
+        "audio": "cz-dub",
+        "autoplay": false
+      },
+      "genreWeights": {
+        "news": 0.25,
+        "documentary": 0.45,
+        "comedy": 0.9,
+        "sports": 0.2,
+        "kids": 0.85,
+        "archive": 0.9
+      }
+    }
+  ],
+  "genres": [
+    {
+      "id": "news",
+      "name": "News"
+    },
+    {
+      "id": "sports",
+      "name": "Sports"
+    },
+    {
+      "id": "comedy",
+      "name": "Comedy"
+    },
+    {
+      "id": "documentary",
+      "name": "Documentary"
+    },
+    {
+      "id": "lifestyle",
+      "name": "Lifestyle"
+    },
+    {
+      "id": "kids",
+      "name": "Kids"
+    },
+    {
+      "id": "archive",
+      "name": "Archive"
+    }
+  ],
+  "mediaAssets": [
+    {
+      "id": "media-flower",
+      "kind": "video",
+      "src": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      "poster": "https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217",
+      "durationSeconds": 30,
+      "audioOptions": [
+        "original",
+        "cz-dub"
+      ],
+      "subtitleTracks": [
+        {
+          "label": "English",
+          "srclang": "en",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
+        },
+        {
+          "label": "Czech",
+          "srclang": "cs",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
+        }
+      ],
+      "portable": true
+    },
+    {
+      "id": "media-bunny",
+      "kind": "video",
+      "src": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      "poster": "https://peach.blender.org/wp-content/uploads/bbb-splash.png",
+      "durationSeconds": 596,
+      "audioOptions": [
+        "original",
+        "cz-dub"
+      ],
+      "subtitleTracks": [
+        {
+          "label": "English",
+          "srclang": "en",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
+        },
+        {
+          "label": "Czech",
+          "srclang": "cs",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
+        }
+      ],
+      "portable": true
+    },
+    {
+      "id": "media-elephant",
+      "kind": "video",
+      "src": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      "poster": "https://orange.blender.org/wp-content/themes/orange/images/common/ed_header.jpg",
+      "durationSeconds": 653,
+      "audioOptions": [
+        "original",
+        "cz-dub"
+      ],
+      "subtitleTracks": [
+        {
+          "label": "English",
+          "srclang": "en",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
+        },
+        {
+          "label": "Czech",
+          "srclang": "cs",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
+        }
+      ],
+      "portable": true
+    },
+    {
+      "id": "media-sintel",
+      "kind": "video",
+      "src": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+      "poster": "https://durian.blender.org/wp-content/uploads/2010/05/sintel_poster.jpg",
+      "durationSeconds": 888,
+      "audioOptions": [
+        "original",
+        "cz-dub"
+      ],
+      "subtitleTracks": [
+        {
+          "label": "English",
+          "srclang": "en",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
+        },
+        {
+          "label": "Czech",
+          "srclang": "cs",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
+        }
+      ],
+      "portable": true
+    },
+    {
+      "id": "media-service-mbrs",
+      "kind": "video",
+      "src": "media/service-mbrs-ntscrm-00021068-00021068.mp4",
+      "poster": "",
+      "durationSeconds": 7200,
+      "audioOptions": [
+        "original"
+      ],
+      "subtitleTracks": [
+        {
+          "label": "English",
+          "srclang": "en",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
+        },
+        {
+          "label": "Czech",
+          "srclang": "cs",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
+        }
+      ],
+      "sourceNote": "Service Mbrs Ntscrm",
+      "fallbackSrc": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      "portable": true
+    },
+    {
+      "id": "media-moviola-176-r1",
+      "kind": "video",
+      "src": "media/movio-moviola-176-r1.mp4",
+      "poster": "",
+      "durationSeconds": 1500,
+      "audioOptions": [
+        "original"
+      ],
+      "subtitleTracks": [
+        {
+          "label": "English",
+          "srclang": "en",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
+        },
+        {
+          "label": "Czech",
+          "srclang": "cs",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
+        }
+      ],
+      "sourceNote": "Moviola 176 R1",
+      "fallbackSrc": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      "portable": true
+    },
+    {
+      "id": "media-moviola-176-r2",
+      "kind": "video",
+      "src": "media/movio-moviola-176-r2.mp4",
+      "poster": "",
+      "durationSeconds": 1500,
+      "audioOptions": [
+        "original"
+      ],
+      "subtitleTracks": [
+        {
+          "label": "English",
+          "srclang": "en",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
+        },
+        {
+          "label": "Czech",
+          "srclang": "cs",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
+        }
+      ],
+      "sourceNote": "Moviola 176 R2",
+      "fallbackSrc": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      "portable": true
+    },
+    {
+      "id": "media-moviola-176-r3",
+      "kind": "video",
+      "src": "media/movio-moviola-176-r3.mp4",
+      "poster": "",
+      "durationSeconds": 1500,
+      "audioOptions": [
+        "original"
+      ],
+      "subtitleTracks": [
+        {
+          "label": "English",
+          "srclang": "en",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
+        },
+        {
+          "label": "Czech",
+          "srclang": "cs",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
+        }
+      ],
+      "sourceNote": "Moviola 176 R3",
+      "fallbackSrc": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+      "portable": true
+    },
+    {
+      "id": "media-moviola-176-r4",
+      "kind": "video",
+      "src": "media/movio-moviola-176-r4.mp4",
+      "poster": "",
+      "durationSeconds": 1500,
+      "audioOptions": [
+        "original"
+      ],
+      "subtitleTracks": [
+        {
+          "label": "English",
+          "srclang": "en",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
+        },
+        {
+          "label": "Czech",
+          "srclang": "cs",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
+        }
+      ],
+      "sourceNote": "Moviola 176 R4",
+      "fallbackSrc": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      "portable": true
+    },
+    {
+      "id": "media-moviola-176-r5",
+      "kind": "video",
+      "src": "media/movio-moviola-176-r5.mp4",
+      "poster": "",
+      "durationSeconds": 1500,
+      "audioOptions": [
+        "original"
+      ],
+      "subtitleTracks": [
+        {
+          "label": "English",
+          "srclang": "en",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
+        },
+        {
+          "label": "Czech",
+          "srclang": "cs",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
+        }
+      ],
+      "sourceNote": "Moviola 176 R5",
+      "fallbackSrc": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      "portable": true
+    },
+    {
+      "id": "media-moviola-176-r6",
+      "kind": "video",
+      "src": "media/movio-moviola-176-r6.mp4",
+      "poster": "",
+      "durationSeconds": 1500,
+      "audioOptions": [
+        "original"
+      ],
+      "subtitleTracks": [
+        {
+          "label": "English",
+          "srclang": "en",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
+        },
+        {
+          "label": "Czech",
+          "srclang": "cs",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
+        }
+      ],
+      "sourceNote": "Moviola 176 R6",
+      "fallbackSrc": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      "portable": true
+    },
+    {
+      "id": "media-moviola-176-r7",
+      "kind": "video",
+      "src": "media/movio-moviola-176-r7.mp4",
+      "poster": "",
+      "durationSeconds": 1500,
+      "audioOptions": [
+        "original"
+      ],
+      "subtitleTracks": [
+        {
+          "label": "English",
+          "srclang": "en",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
+        },
+        {
+          "label": "Czech",
+          "srclang": "cs",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
+        }
+      ],
+      "sourceNote": "Moviola 176 R7",
+      "fallbackSrc": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+      "portable": true
+    },
+    {
+      "id": "media-111-h-1101-r1",
+      "kind": "video",
+      "src": "media/111-h-1101-r1.mp4",
+      "poster": "",
+      "durationSeconds": 3000,
+      "audioOptions": [
+        "original"
+      ],
+      "subtitleTracks": [
+        {
+          "label": "English",
+          "srclang": "en",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
+        },
+        {
+          "label": "Czech",
+          "srclang": "cs",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
+        }
+      ],
+      "sourceNote": "111 H 1101 R1",
+      "fallbackSrc": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      "portable": true
+    },
+    {
+      "id": "media-111-h-1101-r2",
+      "kind": "video",
+      "src": "media/111-h-1101-r2.mp4",
+      "poster": "",
+      "durationSeconds": 3000,
+      "audioOptions": [
+        "original"
+      ],
+      "subtitleTracks": [
+        {
+          "label": "English",
+          "srclang": "en",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
+        },
+        {
+          "label": "Czech",
+          "srclang": "cs",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
+        }
+      ],
+      "sourceNote": "111 H 1101 R2",
+      "fallbackSrc": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      "portable": true
+    },
+    {
+      "id": "media-111-h-1101-r3",
+      "kind": "video",
+      "src": "media/111-h-1101-r3.mp4",
+      "poster": "",
+      "durationSeconds": 1500,
+      "audioOptions": [
+        "original"
+      ],
+      "subtitleTracks": [
+        {
+          "label": "English",
+          "srclang": "en",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
+        },
+        {
+          "label": "Czech",
+          "srclang": "cs",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
+        }
+      ],
+      "sourceNote": "111 H 1101 R3",
+      "fallbackSrc": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      "portable": true
+    },
+    {
+      "id": "media-111-h-1102-r1",
+      "kind": "video",
+      "src": "media/111-h-1102-r1.mp4",
+      "poster": "",
+      "durationSeconds": 3000,
+      "audioOptions": [
+        "original"
+      ],
+      "subtitleTracks": [
+        {
+          "label": "English",
+          "srclang": "en",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
+        },
+        {
+          "label": "Czech",
+          "srclang": "cs",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
+        }
+      ],
+      "sourceNote": "111 H 1102 R1",
+      "fallbackSrc": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+      "portable": true
+    },
+    {
+      "id": "media-111-h-1102-r2",
+      "kind": "video",
+      "src": "media/111-h-1102-r2.mp4",
+      "poster": "",
+      "durationSeconds": 3000,
+      "audioOptions": [
+        "original"
+      ],
+      "subtitleTracks": [
+        {
+          "label": "English",
+          "srclang": "en",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
+        },
+        {
+          "label": "Czech",
+          "srclang": "cs",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
+        }
+      ],
+      "sourceNote": "111 H 1102 R2",
+      "fallbackSrc": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      "portable": true
+    },
+    {
+      "id": "media-111-h-1102-r3",
+      "kind": "video",
+      "src": "media/111-h-1102-r3.mp4",
+      "poster": "",
+      "durationSeconds": 3000,
+      "audioOptions": [
+        "original"
+      ],
+      "subtitleTracks": [
+        {
+          "label": "English",
+          "srclang": "en",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
+        },
+        {
+          "label": "Czech",
+          "srclang": "cs",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
+        }
+      ],
+      "sourceNote": "111 H 1102 R3",
+      "fallbackSrc": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      "portable": true
+    },
+    {
+      "id": "media-111-h-1102-r4",
+      "kind": "video",
+      "src": "media/111-h-1102-r4.mp4",
+      "poster": "",
+      "durationSeconds": 3000,
+      "audioOptions": [
+        "original"
+      ],
+      "subtitleTracks": [
+        {
+          "label": "English",
+          "srclang": "en",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
+        },
+        {
+          "label": "Czech",
+          "srclang": "cs",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
+        }
+      ],
+      "sourceNote": "111 H 1102 R4",
+      "fallbackSrc": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      "portable": true
+    },
+    {
+      "id": "media-111-h-1102-r5",
+      "kind": "video",
+      "src": "media/111-h-1102-r5.mp4",
+      "poster": "",
+      "durationSeconds": 2400,
+      "audioOptions": [
+        "original"
+      ],
+      "subtitleTracks": [
+        {
+          "label": "English",
+          "srclang": "en",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
+        },
+        {
+          "label": "Czech",
+          "srclang": "cs",
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
+        }
+      ],
+      "sourceNote": "111 H 1102 R5",
+      "fallbackSrc": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+      "portable": true
+    }
+  ],
+  "channels": [
+    {
+      "id": "local-archive",
+      "name": "Local Archive TV",
+      "shortName": "Archive",
+      "region": "prague",
+      "accent": "#8f5b2e",
+      "description": "Copyright-free local video reels imported from Downloads for the NetVision prototype."
+    },
+    {
+      "id": "ct1",
+      "name": "Czech Television 1",
+      "shortName": "CT1",
+      "region": "cz-national",
+      "accent": "#d4473f",
+      "description": "National public-service programming with news, explainers, culture, and civic events."
+    },
+    {
+      "id": "nova",
+      "name": "Nova",
+      "shortName": "Nova",
+      "region": "cz-national",
+      "accent": "#246bce",
+      "description": "Broad mainstream entertainment, serials, lifestyle shows, and major evening formats."
+    },
+    {
+      "id": "cartoon",
+      "name": "Cartoon Network Local",
+      "shortName": "Cartoon",
+      "region": "prague",
+      "accent": "#f0b638",
+      "description": "A regional kids and animation channel available only where rights allow it."
+    }
+  ],
+  "programs": [
+    {
+      "id": "program-newsroom",
+      "channelId": "ct1",
+      "title": "News Livestream",
+      "format": "livestream",
+      "genreIds": [
+        "news"
+      ],
+      "description": "A live-first news room for national and regional updates.",
+      "availability": "scheduled-live"
+    },
+    {
+      "id": "program-sports-live",
+      "channelId": "ct1",
+      "title": "Sports Livestream",
+      "format": "livestream",
+      "genreIds": [
+        "sports"
+      ],
+      "description": "Live sport coverage when rights and timing line up.",
+      "availability": "scheduled-live"
+    },
+    {
+      "id": "program-fun-live",
+      "channelId": "nova",
+      "title": "Fun Livestream",
+      "format": "livestream",
+      "genreIds": [
+        "comedy"
+      ],
+      "description": "Live entertainment blocks and event-style comedy programming.",
+      "availability": "scheduled-live"
+    },
+    {
+      "id": "program-repair",
+      "channelId": "nova",
+      "title": "The Repair Hour",
+      "format": "series",
+      "genreIds": [
+        "lifestyle",
+        "documentary"
+      ],
+      "description": "People bring broken objects, stalled projects, and impossible little problems to experts."
+    },
+    {
+      "id": "program-archive",
+      "channelId": "ct1",
+      "title": "Archive Live",
+      "format": "series",
+      "genreIds": [
+        "documentary",
+        "news"
+      ],
+      "description": "Historical footage programmed as if it were live television."
+    },
+    {
+      "id": "program-cartoons",
+      "channelId": "cartoon",
+      "title": "Saturday Cartoon Belt",
+      "format": "series",
+      "genreIds": [
+        "kids",
+        "comedy"
+      ],
+      "description": "Short animated episodes collected into a light regional channel."
+    },
+    {
+      "id": "program-service-films",
+      "channelId": "local-archive",
+      "title": "Service Films",
+      "format": "archive",
+      "genreIds": [
+        "archive",
+        "documentary"
+      ],
+      "description": "Large-format service and institutional film material from local files."
+    },
+    {
+      "id": "program-moviola",
+      "channelId": "local-archive",
+      "title": "Moviola 176",
+      "format": "archive series",
+      "genreIds": [
+        "archive",
+        "documentary"
+      ],
+      "description": "Seven Moviola reels available as on-demand prototype episodes."
+    },
+    {
+      "id": "program-archive-1101",
+      "channelId": "local-archive",
+      "title": "Archive 1101",
+      "format": "archive series",
+      "genreIds": [
+        "archive",
+        "documentary"
+      ],
+      "description": "Three local archive reels grouped as one NetVision program."
+    },
+    {
+      "id": "program-archive-1102",
+      "channelId": "local-archive",
+      "title": "Archive 1102",
+      "format": "archive series",
+      "genreIds": [
+        "archive",
+        "documentary"
+      ],
+      "description": "Five local archive reels grouped as one NetVision program."
+    }
+  ],
+  "episodes": [
+    {
+      "id": "episode-news-1",
+      "programId": "program-newsroom",
+      "title": "News Update",
+      "season": 2026,
+      "episode": 1,
+      "mediaAssetId": "media-flower",
+      "durationMinutes": 30,
+      "description": "A compact live-style update with headlines and weather."
+    },
+    {
+      "id": "episode-sports-1",
+      "programId": "program-sports-live",
+      "title": "Sports Desk",
+      "season": 2026,
+      "episode": 1,
+      "mediaAssetId": "media-bunny",
+      "durationMinutes": 45,
+      "description": "A sports block standing in for rights-controlled live coverage."
+    },
+    {
+      "id": "episode-fun-1",
+      "programId": "program-fun-live",
+      "title": "Evening Fun Feed",
+      "season": 2026,
+      "episode": 1,
+      "mediaAssetId": "media-elephant",
+      "durationMinutes": 40,
+      "description": "An event-like entertainment stream for casual viewing."
+    },
+    {
+      "id": "episode-repair-1",
+      "programId": "program-repair",
+      "title": "The Clock That Would Not Stop",
+      "season": 1,
+      "episode": 1,
+      "mediaAssetId": "media-bunny",
+      "durationMinutes": 22,
+      "description": "A family heirloom clock becomes a reason to talk about repair, memory, and patience."
+    },
+    {
+      "id": "episode-repair-2",
+      "programId": "program-repair",
+      "title": "Kitchen Cabinet Rescue",
+      "season": 1,
+      "episode": 2,
+      "mediaAssetId": "media-elephant",
+      "durationMinutes": 24,
+      "description": "A small apartment kitchen gets one clever fix at a time."
+    },
+    {
+      "id": "episode-archive-1",
+      "programId": "program-archive",
+      "title": "The Day the Signal Changed",
+      "season": 1,
+      "episode": 1,
+      "mediaAssetId": "media-sintel",
+      "durationMinutes": 28,
+      "description": "A short documentary episode about broadcast transitions and shared national moments."
+    },
+    {
+      "id": "episode-cartoon-1",
+      "programId": "program-cartoons",
+      "title": "Tiny Trouble",
+      "season": 1,
+      "episode": 1,
+      "mediaAssetId": "media-flower",
+      "durationMinutes": 8,
+      "description": "A short, harmless animated slot for the kids channel prototype."
+    },
+    {
+      "id": "episode-service-mbrs",
+      "programId": "program-service-films",
+      "title": "Service film reel",
+      "season": 1,
+      "episode": 1,
+      "mediaAssetId": "media-service-mbrs",
+      "durationMinutes": 120,
+      "description": "Copyright-free local video file: service-mbrs-ntscrm-00021068-00021068.mp4."
+    },
+    {
+      "id": "episode-moviola-r1",
+      "programId": "program-moviola",
+      "title": "Moviola reel 1",
+      "season": 1,
+      "episode": 1,
+      "mediaAssetId": "media-moviola-176-r1",
+      "durationMinutes": 25,
+      "description": "Copyright-free local video file: movio-moviola-176-r1.mp4."
+    },
+    {
+      "id": "episode-moviola-r2",
+      "programId": "program-moviola",
+      "title": "Moviola reel 2",
+      "season": 1,
+      "episode": 2,
+      "mediaAssetId": "media-moviola-176-r2",
+      "durationMinutes": 25,
+      "description": "Copyright-free local video file: movio-moviola-176-r2.mp4."
+    },
+    {
+      "id": "episode-moviola-r3",
+      "programId": "program-moviola",
+      "title": "Moviola reel 3",
+      "season": 1,
+      "episode": 3,
+      "mediaAssetId": "media-moviola-176-r3",
+      "durationMinutes": 25,
+      "description": "Copyright-free local video file: movio-moviola-176-r3.mp4."
+    },
+    {
+      "id": "episode-moviola-r4",
+      "programId": "program-moviola",
+      "title": "Moviola reel 4",
+      "season": 1,
+      "episode": 4,
+      "mediaAssetId": "media-moviola-176-r4",
+      "durationMinutes": 25,
+      "description": "Copyright-free local video file: movio-moviola-176-r4.mp4."
+    },
+    {
+      "id": "episode-moviola-r5",
+      "programId": "program-moviola",
+      "title": "Moviola reel 5",
+      "season": 1,
+      "episode": 5,
+      "mediaAssetId": "media-moviola-176-r5",
+      "durationMinutes": 25,
+      "description": "Copyright-free local video file: movio-moviola-176-r5.mp4."
+    },
+    {
+      "id": "episode-moviola-r6",
+      "programId": "program-moviola",
+      "title": "Moviola reel 6",
+      "season": 1,
+      "episode": 6,
+      "mediaAssetId": "media-moviola-176-r6",
+      "durationMinutes": 25,
+      "description": "Copyright-free local video file: movio-moviola-176-r6.mp4."
+    },
+    {
+      "id": "episode-moviola-r7",
+      "programId": "program-moviola",
+      "title": "Moviola reel 7",
+      "season": 1,
+      "episode": 7,
+      "mediaAssetId": "media-moviola-176-r7",
+      "durationMinutes": 25,
+      "description": "Copyright-free local video file: movio-moviola-176-r7.mp4."
+    },
+    {
+      "id": "episode-1101-r1",
+      "programId": "program-archive-1101",
+      "title": "Archive 1101 reel 1",
+      "season": 1,
+      "episode": 1,
+      "mediaAssetId": "media-111-h-1101-r1",
+      "durationMinutes": 50,
+      "description": "Copyright-free local video file: 111-h-1101-r1.mp4."
+    },
+    {
+      "id": "episode-1101-r2",
+      "programId": "program-archive-1101",
+      "title": "Archive 1101 reel 2",
+      "season": 1,
+      "episode": 2,
+      "mediaAssetId": "media-111-h-1101-r2",
+      "durationMinutes": 50,
+      "description": "Copyright-free local video file: 111-h-1101-r2.mp4."
+    },
+    {
+      "id": "episode-1101-r3",
+      "programId": "program-archive-1101",
+      "title": "Archive 1101 reel 3",
+      "season": 1,
+      "episode": 3,
+      "mediaAssetId": "media-111-h-1101-r3",
+      "durationMinutes": 25,
+      "description": "Copyright-free local video file: 111-h-1101-r3.mp4."
+    },
+    {
+      "id": "episode-1102-r1",
+      "programId": "program-archive-1102",
+      "title": "Archive 1102 reel 1",
+      "season": 1,
+      "episode": 1,
+      "mediaAssetId": "media-111-h-1102-r1",
+      "durationMinutes": 50,
+      "description": "Copyright-free local video file: 111-h-1102-r1.mp4."
+    },
+    {
+      "id": "episode-1102-r2",
+      "programId": "program-archive-1102",
+      "title": "Archive 1102 reel 2",
+      "season": 1,
+      "episode": 2,
+      "mediaAssetId": "media-111-h-1102-r2",
+      "durationMinutes": 50,
+      "description": "Copyright-free local video file: 111-h-1102-r2.mp4."
+    },
+    {
+      "id": "episode-1102-r3",
+      "programId": "program-archive-1102",
+      "title": "Archive 1102 reel 3",
+      "season": 1,
+      "episode": 3,
+      "mediaAssetId": "media-111-h-1102-r3",
+      "durationMinutes": 50,
+      "description": "Copyright-free local video file: 111-h-1102-r3.mp4."
+    },
+    {
+      "id": "episode-1102-r4",
+      "programId": "program-archive-1102",
+      "title": "Archive 1102 reel 4",
+      "season": 1,
+      "episode": 4,
+      "mediaAssetId": "media-111-h-1102-r4",
+      "durationMinutes": 50,
+      "description": "Copyright-free local video file: 111-h-1102-r4.mp4."
+    },
+    {
+      "id": "episode-1102-r5",
+      "programId": "program-archive-1102",
+      "title": "Archive 1102 reel 5",
+      "season": 1,
+      "episode": 5,
+      "mediaAssetId": "media-111-h-1102-r5",
+      "durationMinutes": 40,
+      "description": "Copyright-free local video file: 111-h-1102-r5.mp4."
+    }
+  ],
+  "scheduleItems": [
+    {
+      "id": "schedule-ct-news",
+      "channelId": "ct1",
+      "episodeId": "episode-news-1",
+      "block": "News livestream",
+      "start": "06:00",
+      "end": "09:00",
+      "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri"
+      ],
+      "mode": "scheduled-live"
+    },
+    {
+      "id": "schedule-ct-sports",
+      "channelId": "ct1",
+      "episodeId": "episode-sports-1",
+      "block": "Sports livestream",
+      "start": "18:00",
+      "end": "20:00",
+      "days": [
+        "sat",
+        "sun"
+      ],
+      "mode": "scheduled-live"
+    },
+    {
+      "id": "schedule-nova-fun",
+      "channelId": "nova",
+      "episodeId": "episode-fun-1",
+      "block": "Fun livestream",
+      "start": "20:00",
+      "end": "21:30",
+      "days": [
+        "fri",
+        "sat"
+      ],
+      "mode": "scheduled-live"
+    }
+  ],
+  "watchHistory": [
+    {
+      "userId": "user-1",
+      "episodeId": "episode-archive-1",
+      "watchedSeconds": 410,
+      "completed": false,
+      "lastWatchedAt": "2026-06-01T20:15:00+02:00"
+    },
+    {
+      "userId": "user-1",
+      "episodeId": "episode-repair-1",
+      "watchedSeconds": 1320,
+      "completed": true,
+      "lastWatchedAt": "2026-06-01T19:10:00+02:00"
+    }
+  ]
+};
+
+    </script>
+    <script>
+const state = {
+  db: null,
+  activeChannelId: null,
+  currentEpisodeId: null,
+  searchQuery: "",
+  currentMediaId: null,
+  usingFallback: false
+};
+
+const STORAGE_KEY = "netvision-prototype-state";
+
+const els = {
+  screenTitle: document.getElementById("screenTitle"),
+  videoPlayer: document.getElementById("videoPlayer"),
+  loginSelect: document.getElementById("loginSelect"),
+  subtitleSelect: document.getElementById("subtitleSelect"),
+  audioSelect: document.getElementById("audioSelect"),
+  autoplayToggle: document.getElementById("autoplayToggle"),
+  searchInput: document.getElementById("searchInput"),
+  searchCount: document.getElementById("searchCount"),
+  channelKicker: document.getElementById("channelKicker"),
+  programTitle: document.getElementById("programTitle"),
+  programDescription: document.getElementById("programDescription"),
+  episodeTitle: document.getElementById("episodeTitle"),
+  playMode: document.getElementById("playMode"),
+  matchScore: document.getElementById("matchScore"),
+  subtitleStatus: document.getElementById("subtitleStatus"),
+  audioStatus: document.getElementById("audioStatus"),
+  clock: document.getElementById("clock"),
+  userBadge: document.getElementById("userBadge"),
+  channelTitle: document.getElementById("channelTitle"),
+  regionStatus: document.getElementById("regionStatus"),
+  showCount: document.getElementById("showCount"),
+  channelList: document.getElementById("channelList"),
+  liveList: document.getElementById("liveList"),
+  showGrid: document.getElementById("showGrid"),
+  recommendationList: document.getElementById("recommendationList")
+};
+
+function pad(value) {
+  return String(value).padStart(2, "0");
+}
+
+function formatTime(date) {
+  return `${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
+
+function byId(collection, id) {
+  return collection.find((item) => item.id === id);
+}
+
+function currentUser() {
+  return byId(state.db.users, state.db.currentUserId);
+}
+
+function currentSettings() {
+  const user = currentUser();
+  user.settings = user.settings || { subtitles: "off", audio: "original", autoplay: false };
+  return user.settings;
+}
+
+function loadSavedState() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+  } catch {
+    return {};
+  }
+}
+
+function saveState() {
+  const users = {};
+  state.db.users.forEach((user) => {
+    users[user.id] = { settings: user.settings };
+  });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({
+    currentUserId: state.db.currentUserId,
+    activeChannelId: state.activeChannelId,
+    users
+  }));
+}
+
+function applySavedState() {
+  const saved = loadSavedState();
+  if (saved.currentUserId && byId(state.db.users, saved.currentUserId)) {
+    state.db.currentUserId = saved.currentUserId;
+  }
+  state.db.users.forEach((user) => {
+    const savedUser = saved.users && saved.users[user.id];
+    if (savedUser && savedUser.settings) {
+      user.settings = { ...(user.settings || {}), ...savedUser.settings };
+    }
+  });
+  if (saved.activeChannelId && byId(state.db.channels, saved.activeChannelId)) {
+    state.activeChannelId = saved.activeChannelId;
+  }
+}
+
+function channelPrograms(channelId) {
+  return state.db.programs.filter((program) => program.channelId === channelId);
+}
+
+function programEpisodes(programId) {
+  return state.db.episodes.filter((episode) => episode.programId === programId);
+}
+
+function episodeBundle(episodeId) {
+  const episode = byId(state.db.episodes, episodeId);
+  const program = byId(state.db.programs, episode.programId);
+  const channel = byId(state.db.channels, program.channelId);
+  const media = byId(state.db.mediaAssets, episode.mediaAssetId);
+  return { episode, program, channel, media };
+}
+
+function isChannelAvailable(channel) {
+  return currentUser().allowedRegions.includes(channel.region);
+}
+
+function weekdayKey(date) {
+  return ["sun", "mon", "tue", "wed", "thu", "fri", "sat"][date.getDay()];
+}
+
+function minutesOfDay(value) {
+  const [hours, minutes] = value.split(":").map(Number);
+  return hours * 60 + minutes;
+}
+
+function isScheduleLive(item, now = new Date()) {
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+  return item.days.includes(weekdayKey(now)) &&
+    currentMinutes >= minutesOfDay(item.start) &&
+    currentMinutes < minutesOfDay(item.end);
+}
+
+function scoreProgram(program) {
+  const user = currentUser();
+  const favoriteBoost = user.favoriteProgramIds.includes(program.id) ? 0.3 : 0;
+  const genreScore = program.genreIds.reduce((sum, genreId) => {
+    return sum + (user.genreWeights[genreId] || 0.1);
+  }, 0) / Math.max(1, program.genreIds.length);
+  return Math.min(1, genreScore + favoriteBoost);
+}
+
+function playEpisode(episodeId, mode = "on demand") {
+  state.currentEpisodeId = episodeId;
+  const { episode, program, channel, media } = episodeBundle(episodeId);
+  const score = Math.round(scoreProgram(program) * 100);
+  state.currentMediaId = media.id;
+  state.usingFallback = false;
+
+  document.documentElement.style.setProperty("--accent", channel.accent);
+  els.screenTitle.textContent = channel.name;
+  els.channelKicker.textContent = `${channel.shortName} · ${program.format}`;
+  els.programTitle.textContent = program.title;
+  els.programDescription.textContent = episode.description;
+  els.episodeTitle.textContent = episode.title;
+  els.playMode.textContent = mode;
+  els.matchScore.textContent = `${score}%`;
+
+  if (els.videoPlayer.getAttribute("src") !== media.src) {
+    els.videoPlayer.poster = media.poster;
+    els.videoPlayer.src = media.src;
+    installSubtitleTracks(media);
+  }
+  applyPlayerSettings();
+  if (currentSettings().autoplay) {
+    els.videoPlayer.play().catch(() => {});
+  }
+
+  render();
+}
+
+function handleMediaError() {
+  if (!state.currentEpisodeId || state.usingFallback) return;
+  const { media } = episodeBundle(state.currentEpisodeId);
+  if (!media.fallbackSrc) return;
+  state.usingFallback = true;
+  els.videoPlayer.src = media.fallbackSrc;
+  els.programDescription.textContent = `${els.programDescription.textContent} Local media file is missing, so NetVision is using a sample fallback.`;
+}
+
+function installSubtitleTracks(media) {
+  els.videoPlayer.querySelectorAll("track").forEach((track) => track.remove());
+  (media.subtitleTracks || []).forEach((track) => {
+    const node = document.createElement("track");
+    node.kind = "subtitles";
+    node.label = track.label;
+    node.srclang = track.srclang;
+    node.src = track.src;
+    els.videoPlayer.appendChild(node);
+  });
+}
+
+function applyPlayerSettings() {
+  const settings = currentSettings();
+  els.subtitleSelect.value = settings.subtitles || "off";
+  els.audioSelect.value = settings.audio || "original";
+  els.autoplayToggle.checked = Boolean(settings.autoplay);
+  els.subtitleStatus.textContent = settings.subtitles === "off" ? "Off" : settings.subtitles.toUpperCase();
+  els.audioStatus.textContent = settings.audio === "cz-dub" ? "Czech dub" : "Original";
+
+  Array.from(els.videoPlayer.textTracks || []).forEach((track) => {
+    track.mode = track.language === settings.subtitles ? "showing" : "disabled";
+  });
+}
+
+function matchesSearch(text) {
+  if (!state.searchQuery) return true;
+  return text.toLowerCase().includes(state.searchQuery);
+}
+
+function renderChannels() {
+  els.channelList.innerHTML = "";
+
+  state.db.channels
+    .filter((channel) => matchesSearch(`${channel.name} ${channel.shortName} ${channel.description}`))
+    .forEach((channel) => {
+    const user = currentUser();
+    const available = isChannelAvailable(channel);
+    const favorite = user.favoriteChannelIds.includes(channel.id);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.disabled = !available;
+    button.className = `channel-button${channel.id === state.activeChannelId ? " is-active" : ""}`;
+    button.style.setProperty("--accent", channel.accent);
+    button.innerHTML = `
+      <span class="swatch"></span>
+      <span>
+        <span class="channel-name">${channel.name}</span>
+        <span class="channel-tagline">${favorite ? "Favorite" : channel.region}${available ? "" : " · unavailable"}</span>
+      </span>
+    `;
+    button.addEventListener("click", () => {
+      state.activeChannelId = channel.id;
+      saveState();
+      const firstEpisode = firstPlayableEpisode(channel.id);
+      if (firstEpisode) playEpisode(firstEpisode.id);
+      render();
+    });
+    els.channelList.appendChild(button);
+    });
+}
+
+function firstPlayableEpisode(channelId) {
+  const programs = channelPrograms(channelId);
+  for (const program of programs) {
+    const episode = programEpisodes(program.id)[0];
+    if (episode) return episode;
+  }
+  return null;
+}
+
+function renderLiveBlocks() {
+  const liveItems = state.db.scheduleItems.filter((item) => {
+    const { episode, program } = episodeBundle(item.episodeId);
+    return item.channelId === state.activeChannelId &&
+      matchesSearch(`${program.title} ${episode.title} ${episode.description} ${item.block}`);
+  });
+  els.liveList.innerHTML = "";
+
+  if (!liveItems.length) {
+    const empty = document.createElement("p");
+    empty.className = "empty-state";
+    empty.textContent = "No scheduled livestream blocks for this channel.";
+    els.liveList.appendChild(empty);
+    return;
+  }
+
+  liveItems.forEach((item) => {
+    const { episode, program } = episodeBundle(item.episodeId);
+    const live = isScheduleLive(item);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = `live-card${live ? " is-live" : ""}`;
+    button.innerHTML = `
+      <span>${item.start}-${item.end}</span>
+      <strong>${program.title}</strong>
+      <small>${live ? "Live now" : item.block}</small>
+    `;
+    button.addEventListener("click", () => playEpisode(episode.id, live ? "live stream" : "scheduled stream"));
+    els.liveList.appendChild(button);
+  });
+}
+
+function renderShows() {
+  const programs = channelPrograms(state.activeChannelId);
+  els.showGrid.innerHTML = "";
+  let rendered = 0;
+
+  programs.forEach((program) => {
+    const episodes = programEpisodes(program.id);
+    episodes.forEach((episode) => {
+      if (!matchesSearch(`${program.title} ${program.description} ${episode.title} ${episode.description}`)) return;
+      const media = byId(state.db.mediaAssets, episode.mediaAssetId);
+      const thumbStyle = media.poster ? `style="background-image: url('${media.poster}')"` : "";
+      const card = document.createElement("button");
+      card.type = "button";
+      card.className = `show-card${episode.id === state.currentEpisodeId ? " is-playing" : ""}`;
+      card.innerHTML = `
+        <span class="thumb${media.poster ? "" : " no-poster"}" ${thumbStyle}>${media.poster ? "" : "NV"}</span>
+        <span class="show-copy">
+          <strong>${episode.title}</strong>
+          <small>${program.title} · S${episode.season} E${episode.episode}</small>
+        </span>
+      `;
+      card.addEventListener("click", () => playEpisode(episode.id));
+      els.showGrid.appendChild(card);
+      rendered += 1;
+    });
+  });
+  els.showCount.textContent = `${rendered}`;
+}
+
+function renderRecommendations() {
+  const rows = state.db.programs
+    .filter((program) => isChannelAvailable(byId(state.db.channels, program.channelId)))
+    .filter((program) => matchesSearch(`${program.title} ${program.description}`))
+    .map((program) => ({ program, score: scoreProgram(program) }))
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 4);
+
+  els.recommendationList.innerHTML = "";
+  rows.forEach(({ program, score }) => {
+    const channel = byId(state.db.channels, program.channelId);
+    const episode = programEpisodes(program.id)[0];
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "recommendation";
+    button.innerHTML = `
+      <span>
+        <strong>${program.title}</strong>
+        <small>${channel.shortName} · ${Math.round(score * 100)}% match</small>
+      </span>
+      <span>›</span>
+    `;
+    button.addEventListener("click", () => {
+      state.activeChannelId = channel.id;
+      saveState();
+      playEpisode(episode.id);
+    });
+    els.recommendationList.appendChild(button);
+  });
+}
+
+function render() {
+  if (!state.db) return;
+
+  const user = currentUser();
+  const channel = byId(state.db.channels, state.activeChannelId);
+  els.clock.textContent = formatTime(new Date());
+  els.userBadge.textContent = `${user.name} · ${user.homeRegion}`;
+  els.channelTitle.textContent = `${channel.shortName} programs`;
+  els.regionStatus.textContent = isChannelAvailable(channel) ? channel.region : "not available";
+
+  renderChannels();
+  renderLiveBlocks();
+  renderShows();
+  renderRecommendations();
+  els.searchCount.textContent = state.searchQuery ? "filtered" : "all";
+}
+
+function renderLogin() {
+  els.loginSelect.innerHTML = "";
+  state.db.users.forEach((user) => {
+    const option = document.createElement("option");
+    option.value = user.id;
+    option.textContent = `Log in: ${user.name}`;
+    option.selected = user.id === state.db.currentUserId;
+    els.loginSelect.appendChild(option);
+  });
+}
+
+function bindControls() {
+  els.videoPlayer.addEventListener("error", handleMediaError);
+
+  els.loginSelect.addEventListener("change", () => {
+    state.db.currentUserId = els.loginSelect.value;
+    const user = currentUser();
+    state.activeChannelId = user.favoriteChannelIds[0] || state.db.channels[0].id;
+    saveState();
+    const firstEpisode = firstPlayableEpisode(state.activeChannelId);
+    if (firstEpisode) playEpisode(firstEpisode.id, "profile");
+    render();
+  });
+
+  els.searchInput.addEventListener("input", () => {
+    state.searchQuery = els.searchInput.value.trim().toLowerCase();
+    render();
+  });
+
+  els.subtitleSelect.addEventListener("change", () => {
+    currentSettings().subtitles = els.subtitleSelect.value;
+    saveState();
+    applyPlayerSettings();
+  });
+
+  els.audioSelect.addEventListener("change", () => {
+    currentSettings().audio = els.audioSelect.value;
+    saveState();
+    playEpisode(state.currentEpisodeId, "on demand");
+  });
+
+  els.autoplayToggle.addEventListener("change", () => {
+    currentSettings().autoplay = els.autoplayToggle.checked;
+    saveState();
+    applyPlayerSettings();
+  });
+}
+
+async function init() {
+  if (window.NETVISION_DB) {
+    state.db = window.NETVISION_DB;
+  } else {
+    try {
+      const response = await fetch("data/db.json");
+      state.db = await response.json();
+    } catch (error) {
+      if (!window.NETVISION_DB) throw error;
+      state.db = window.NETVISION_DB;
+    }
+  }
+  applySavedState();
+  const user = currentUser();
+  state.activeChannelId = state.activeChannelId || user.favoriteChannelIds[0] || state.db.channels[0].id;
+  renderLogin();
+  bindControls();
+  const firstEpisode = firstPlayableEpisode(state.activeChannelId);
+  if (firstEpisode) playEpisode(firstEpisode.id, "startup");
+  setInterval(render, 15000);
+}
+
+init().catch((error) => {
+  els.programTitle.textContent = "Could not load NetVision";
+  els.programDescription.textContent = error.message;
+});
+
+    </script>
   </body>
 </html>

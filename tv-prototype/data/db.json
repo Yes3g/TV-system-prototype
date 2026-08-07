@@ -111,12 +111,12 @@
         {
           "label": "English",
           "srclang": "en",
-          "src": "captions/en.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
         },
         {
           "label": "Czech",
           "srclang": "cs",
-          "src": "captions/cs.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
         }
       ],
       "portable": true
@@ -135,12 +135,12 @@
         {
           "label": "English",
           "srclang": "en",
-          "src": "captions/en.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
         },
         {
           "label": "Czech",
           "srclang": "cs",
-          "src": "captions/cs.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
         }
       ],
       "portable": true
@@ -159,12 +159,12 @@
         {
           "label": "English",
           "srclang": "en",
-          "src": "captions/en.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
         },
         {
           "label": "Czech",
           "srclang": "cs",
-          "src": "captions/cs.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
         }
       ],
       "portable": true
@@ -183,12 +183,12 @@
         {
           "label": "English",
           "srclang": "en",
-          "src": "captions/en.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
         },
         {
           "label": "Czech",
           "srclang": "cs",
-          "src": "captions/cs.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
         }
       ],
       "portable": true
@@ -206,12 +206,12 @@
         {
           "label": "English",
           "srclang": "en",
-          "src": "captions/en.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
         },
         {
           "label": "Czech",
           "srclang": "cs",
-          "src": "captions/cs.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
         }
       ],
       "sourceNote": "Service Mbrs Ntscrm",
@@ -231,12 +231,12 @@
         {
           "label": "English",
           "srclang": "en",
-          "src": "captions/en.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
         },
         {
           "label": "Czech",
           "srclang": "cs",
-          "src": "captions/cs.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
         }
       ],
       "sourceNote": "Moviola 176 R1",
@@ -256,12 +256,12 @@
         {
           "label": "English",
           "srclang": "en",
-          "src": "captions/en.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
         },
         {
           "label": "Czech",
           "srclang": "cs",
-          "src": "captions/cs.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
         }
       ],
       "sourceNote": "Moviola 176 R2",
@@ -281,12 +281,12 @@
         {
           "label": "English",
           "srclang": "en",
-          "src": "captions/en.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
         },
         {
           "label": "Czech",
           "srclang": "cs",
-          "src": "captions/cs.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
         }
       ],
       "sourceNote": "Moviola 176 R3",
@@ -306,12 +306,12 @@
         {
           "label": "English",
           "srclang": "en",
-          "src": "captions/en.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
         },
         {
           "label": "Czech",
           "srclang": "cs",
-          "src": "captions/cs.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
         }
       ],
       "sourceNote": "Moviola 176 R4",
@@ -331,12 +331,12 @@
         {
           "label": "English",
           "srclang": "en",
-          "src": "captions/en.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
         },
         {
           "label": "Czech",
           "srclang": "cs",
-          "src": "captions/cs.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
         }
       ],
       "sourceNote": "Moviola 176 R5",
@@ -356,12 +356,12 @@
         {
           "label": "English",
           "srclang": "en",
-          "src": "captions/en.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
         },
         {
           "label": "Czech",
           "srclang": "cs",
-          "src": "captions/cs.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
         }
       ],
       "sourceNote": "Moviola 176 R6",
@@ -381,12 +381,12 @@
         {
           "label": "English",
           "srclang": "en",
-          "src": "captions/en.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
         },
         {
           "label": "Czech",
           "srclang": "cs",
-          "src": "captions/cs.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
         }
       ],
       "sourceNote": "Moviola 176 R7",
@@ -406,12 +406,12 @@
         {
           "label": "English",
           "srclang": "en",
-          "src": "captions/en.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
         },
         {
           "label": "Czech",
           "srclang": "cs",
-          "src": "captions/cs.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
         }
       ],
       "sourceNote": "111 H 1101 R1",
@@ -431,12 +431,12 @@
         {
           "label": "English",
           "srclang": "en",
-          "src": "captions/en.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
         },
         {
           "label": "Czech",
           "srclang": "cs",
-          "src": "captions/cs.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
         }
       ],
       "sourceNote": "111 H 1101 R2",
@@ -456,12 +456,12 @@
         {
           "label": "English",
           "srclang": "en",
-          "src": "captions/en.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
         },
         {
           "label": "Czech",
           "srclang": "cs",
-          "src": "captions/cs.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
         }
       ],
       "sourceNote": "111 H 1101 R3",
@@ -481,12 +481,12 @@
         {
           "label": "English",
           "srclang": "en",
-          "src": "captions/en.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
         },
         {
           "label": "Czech",
           "srclang": "cs",
-          "src": "captions/cs.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
         }
       ],
       "sourceNote": "111 H 1102 R1",
@@ -506,12 +506,12 @@
         {
           "label": "English",
           "srclang": "en",
-          "src": "captions/en.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
         },
         {
           "label": "Czech",
           "srclang": "cs",
-          "src": "captions/cs.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
         }
       ],
       "sourceNote": "111 H 1102 R2",
@@ -531,12 +531,12 @@
         {
           "label": "English",
           "srclang": "en",
-          "src": "captions/en.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
         },
         {
           "label": "Czech",
           "srclang": "cs",
-          "src": "captions/cs.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
         }
       ],
       "sourceNote": "111 H 1102 R3",
@@ -556,12 +556,12 @@
         {
           "label": "English",
           "srclang": "en",
-          "src": "captions/en.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
         },
         {
           "label": "Czech",
           "srclang": "cs",
-          "src": "captions/cs.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
         }
       ],
       "sourceNote": "111 H 1102 R4",
@@ -581,12 +581,12 @@
         {
           "label": "English",
           "srclang": "en",
-          "src": "captions/en.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20is%20playing%20a%20real%20video%20asset.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0AThis%20subtitle%20track%20is%20part%20of%20the%20local%20prototype.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AChannels%2C%20episodes%2C%20search%2C%20and%20personalization%20are%20driven%20by%20JSON.%0A"
         },
         {
           "label": "Czech",
           "srclang": "cs",
-          "src": "captions/cs.vtt"
+          "src": "data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00.000%20--%3E%2000%3A04.000%0ANetVision%20prehrava%20skutecne%20video.%0A%0A00%3A04.000%20--%3E%2000%3A08.000%0ATahle%20titulkov%C3%A1%20stopa%20patri%20do%20lokalniho%20prototypu.%0A%0A00%3A08.000%20--%3E%2000%3A12.000%0AKanaly%2C%20epizody%2C%20hledani%20a%20personalizace%20jsou%20rizene%20JSONem.%0A"
         }
       ],
       "sourceNote": "111 H 1102 R5",
