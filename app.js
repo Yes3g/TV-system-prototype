@@ -2,12 +2,10 @@ const state = {
   db: null,
   activeChannelId: null,
   currentEpisodeId: null,
-  searchQuery: "",
-  currentMediaId: null,
-  usingFallback: false
+  searchQuery: ""
 };
 
-const STORAGE_KEY = "netvision-prototype-state";
+const STORAGE_KEY = "netvision-sqlite-ui-state";
 
 const els = {
   screenTitle: document.getElementById("screenTitle"),
@@ -68,31 +66,21 @@ function loadSavedState() {
 }
 
 function saveState() {
-  const users = {};
-  state.db.users.forEach((user) => {
-    users[user.id] = { settings: user.settings };
-  });
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({
-    currentUserId: state.db.currentUserId,
-    activeChannelId: state.activeChannelId,
-    users
-  }));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      currentUserId: state.db.currentUserId, activeChannelId: state.activeChannelId
+    }));
+  } catch (_) { NetVisionStore.notify("Browser could not remember the selected profile/channel.", true); }
 }
 
 function applySavedState() {
   const saved = loadSavedState();
-  if (saved.currentUserId && byId(state.db.users, saved.currentUserId)) {
-    state.db.currentUserId = saved.currentUserId;
-  }
-  state.db.users.forEach((user) => {
-    const savedUser = saved.users && saved.users[user.id];
-    if (savedUser && savedUser.settings) {
-      user.settings = { ...(user.settings || {}), ...savedUser.settings };
-    }
-  });
-  if (saved.activeChannelId && byId(state.db.channels, saved.activeChannelId)) {
-    state.activeChannelId = saved.activeChannelId;
-  }
+  if (saved.currentUserId && byId(state.db.users, saved.currentUserId)) state.db.currentUserId = saved.currentUserId;
+  if (saved.activeChannelId && byId(state.db.channels, saved.activeChannelId)) state.activeChannelId = saved.activeChannelId;
+}
+let playbackHistory;
+function refreshSettings(userId) {
+  if (!userId || userId === state.db.currentUserId) applyPlayerSettings();
 }
 
 function channelPrograms(channelId) {
@@ -141,11 +129,10 @@ function scoreProgram(program) {
 }
 
 function playEpisode(episodeId, mode = "on demand") {
+  playbackHistory.select(state.db.currentUserId, episodeId);
   state.currentEpisodeId = episodeId;
   const { episode, program, channel, media } = episodeBundle(episodeId);
   const score = Math.round(scoreProgram(program) * 100);
-  state.currentMediaId = media.id;
-  state.usingFallback = false;
 
   document.documentElement.style.setProperty("--accent", channel.accent);
   els.screenTitle.textContent = channel.name;
@@ -156,26 +143,25 @@ function playEpisode(episodeId, mode = "on demand") {
   els.playMode.textContent = mode;
   els.matchScore.textContent = `${score}%`;
 
-  if (els.videoPlayer.getAttribute("src") !== media.src) {
+  const resolvedMediaSource = new URL(media.src, location.href).href;
+  if (els.videoPlayer.src !== resolvedMediaSource) {
     els.videoPlayer.poster = media.poster;
-    els.videoPlayer.src = media.src;
+    const legacyFile = media.src.startsWith("file:");
+    if (legacyFile) {
+      els.videoPlayer.removeAttribute("src");
+      els.videoPlayer.load();
+      NetVisionStore.notify("This video uses an unavailable local file path. See README to configure media over HTTP.", true);
+    } else {
+      els.videoPlayer.src = media.src;
+    }
     installSubtitleTracks(media);
   }
   applyPlayerSettings();
-  if (currentSettings().autoplay) {
+  if (currentSettings().autoplay && els.videoPlayer.getAttribute("src")) {
     els.videoPlayer.play().catch(() => {});
   }
 
   render();
-}
-
-function handleMediaError() {
-  if (!state.currentEpisodeId || state.usingFallback) return;
-  const { media } = episodeBundle(state.currentEpisodeId);
-  if (!media.fallbackSrc) return;
-  state.usingFallback = true;
-  els.videoPlayer.src = media.fallbackSrc;
-  els.programDescription.textContent = `${els.programDescription.textContent} Local media file is missing, so NetVision is using a sample fallback.`;
 }
 
 function installSubtitleTracks(media) {
@@ -370,8 +356,6 @@ function renderLogin() {
 }
 
 function bindControls() {
-  els.videoPlayer.addEventListener("error", handleMediaError);
-
   els.loginSelect.addEventListener("change", () => {
     state.db.currentUserId = els.loginSelect.value;
     const user = currentUser();
@@ -388,36 +372,25 @@ function bindControls() {
   });
 
   els.subtitleSelect.addEventListener("change", () => {
-    currentSettings().subtitles = els.subtitleSelect.value;
-    saveState();
-    applyPlayerSettings();
+    NetVisionStore.changeSettings(currentUser(), {subtitles: els.subtitleSelect.value}, refreshSettings);
   });
 
   els.audioSelect.addEventListener("change", () => {
-    currentSettings().audio = els.audioSelect.value;
-    saveState();
-    playEpisode(state.currentEpisodeId, "on demand");
+    NetVisionStore.changeSettings(currentUser(), {audio: els.audioSelect.value}, refreshSettings);
   });
 
   els.autoplayToggle.addEventListener("change", () => {
-    currentSettings().autoplay = els.autoplayToggle.checked;
-    saveState();
-    applyPlayerSettings();
+    NetVisionStore.changeSettings(currentUser(), {autoplay: els.autoplayToggle.checked}, refreshSettings);
   });
 }
 
 async function init() {
-  if (location.protocol === "file:" && window.NETVISION_DB) {
-    state.db = window.NETVISION_DB;
-  } else {
-    try {
-      const response = await fetch("data/db.json");
-      state.db = await response.json();
-    } catch (error) {
-      if (!window.NETVISION_DB) throw error;
-      state.db = window.NETVISION_DB;
-    }
-  }
+  if (location.protocol === "file:") throw new Error("Start NetVision with Python: python3 start_server.py. The SQLite version requires its local server.");
+  state.db = await NetVisionStore.bootstrap();
+  NetVisionStore.notify("Ready.");
+  playbackHistory = NetVisionStore.trackPlayer(els.videoPlayer);
+  els.videoPlayer.addEventListener("error", () => NetVisionStore.notify("Video could not be loaded. Check its HTTP address and media availability.", true));
+  NetVisionStore.setupLegacyImport(state.db, () => refreshSettings());
   applySavedState();
   const user = currentUser();
   state.activeChannelId = state.activeChannelId || user.favoriteChannelIds[0] || state.db.channels[0].id;
@@ -429,6 +402,7 @@ async function init() {
 }
 
 init().catch((error) => {
+  NetVisionStore.notify("Could not connect to NetVision. Start or restart the server and reload this page.", true);
   els.programTitle.textContent = "Could not load NetVision";
   els.programDescription.textContent = error.message;
 });

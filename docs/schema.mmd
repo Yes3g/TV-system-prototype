@@ -1,0 +1,156 @@
+erDiagram
+    metadata {
+        text key PK
+        text value
+    }
+    regions {
+        text id PK
+    }
+    users {
+        text id PK
+        text name
+        text home_region
+        integer position
+    }
+    settings {
+        text user_id PK,FK
+        text subtitles
+        text audio
+        integer autoplay
+        integer revision
+    }
+    genres {
+        text id PK
+        text name
+        integer position
+    }
+    channels {
+        text id PK
+        text name
+        text short_name
+        text region FK
+        text accent
+        text description
+        integer position
+    }
+    media_assets {
+        text id PK
+        text kind
+        text src
+        text poster
+        real duration_seconds
+        text source_note
+        integer position
+    }
+    media_audio_options {
+        text media_id PK,FK
+        text option PK
+        integer position
+    }
+    subtitle_tracks {
+        text media_id PK,FK
+        integer position PK
+        text label
+        text srclang
+        text src
+    }
+    programs {
+        text id PK
+        text channel_id FK
+        text title
+        text format
+        text description
+        text availability
+        integer position
+    }
+    program_genres {
+        text program_id PK,FK
+        text genre_id PK,FK
+        integer position
+    }
+    episodes {
+        text id PK
+        text program_id FK
+        text title
+        integer season
+        integer episode
+        text media_asset_id FK
+        real duration_minutes
+        text description
+        integer position
+    }
+    allowed_regions {
+        text user_id PK,FK
+        text region_id PK,FK
+        integer position
+    }
+    favorite_channels {
+        text user_id PK,FK
+        text channel_id PK,FK
+        integer position
+    }
+    favorite_programs {
+        text user_id PK,FK
+        text program_id PK,FK
+        integer position
+    }
+    genre_weights {
+        text user_id PK,FK
+        text genre_id PK,FK
+        real weight
+        integer position
+    }
+    schedule_items {
+        text id PK
+        text channel_id FK
+        text episode_id FK
+        text block
+        text start
+        text end
+        text mode
+        integer position
+    }
+    schedule_days {
+        text schedule_id PK,FK
+        text day PK
+        integer position
+    }
+    watch_history {
+        text user_id PK,FK
+        text episode_id PK,FK
+        real watched_seconds
+        integer completed
+        text last_watched_at
+        integer position
+    }
+    playback_sessions {
+        integer id PK
+        text token
+        text user_id FK
+        text episode_id FK
+        integer last_seq
+    }
+    users ||--o| settings : "user_id"
+    regions ||--o{ channels : "region"
+    media_assets ||--o{ media_audio_options : "media_id"
+    media_assets ||--o{ subtitle_tracks : "media_id"
+    channels ||--o{ programs : "channel_id"
+    genres ||--o{ program_genres : "genre_id"
+    programs ||--o{ program_genres : "program_id"
+    media_assets ||--o{ episodes : "media_asset_id"
+    programs ||--o{ episodes : "program_id"
+    regions ||--o{ allowed_regions : "region_id"
+    users ||--o{ allowed_regions : "user_id"
+    channels ||--o{ favorite_channels : "channel_id"
+    users ||--o{ favorite_channels : "user_id"
+    programs ||--o{ favorite_programs : "program_id"
+    users ||--o{ favorite_programs : "user_id"
+    genres ||--o{ genre_weights : "genre_id"
+    users ||--o{ genre_weights : "user_id"
+    episodes ||--o{ schedule_items : "episode_id"
+    channels ||--o{ schedule_items : "channel_id"
+    schedule_items ||--o{ schedule_days : "schedule_id"
+    episodes ||--o{ watch_history : "episode_id"
+    users ||--o{ watch_history : "user_id"
+    episodes ||--o{ playback_sessions : "episode_id"
+    users ||--o{ playback_sessions : "user_id"

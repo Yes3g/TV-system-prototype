@@ -481,3 +481,7 @@ select:focus {
     justify-content: space-between;
   }
 }
+
+.storage-banner { padding: 8px 20px; background: #f3eee7; color: #302b25; font: 14px system-ui, sans-serif; }
+.storage-banner [data-error="true"] { color: #9b2525; }
+.storage-banner button { margin-left: 12px; cursor: pointer; }

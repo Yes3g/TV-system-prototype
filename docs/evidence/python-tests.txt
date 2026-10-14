@@ -1,0 +1,23 @@
+test_bad_values (test_database.DatabaseTests.test_bad_values) ... ok
+test_concurrent_settings_conflict (test_database.DatabaseTests.test_concurrent_settings_conflict) ... ok
+test_history_pair_and_stale_sequence (test_database.DatabaseTests.test_history_pair_and_stale_sequence) ... ok
+test_import_once_skip_modified_and_atomic_validation (test_database.DatabaseTests.test_import_once_skip_modified_and_atomic_validation) ... ok
+test_integrity (test_database.DatabaseTests.test_integrity) ... ok
+test_invalid_seed_rolls_back_and_can_retry (test_database.DatabaseTests.test_invalid_seed_rolls_back_and_can_retry) ... ok
+test_lossless_import_and_order (test_database.DatabaseTests.test_lossless_import_and_order) ... ok
+test_persistence_and_repeat_initialization (test_database.DatabaseTests.test_persistence_and_repeat_initialization) ... ok
+test_unknown_seed_attribute_not_silently_lost (test_database.DatabaseTests.test_unknown_seed_attribute_not_silently_lost) ... ok
+test_unsupported_version_preserved (test_database.DatabaseTests.test_unsupported_version_preserved) ... ok
+test_bootstrap_read_write_and_profile_isolation (test_http.HttpTests.test_bootstrap_read_write_and_profile_isolation) ... ok
+test_history_api (test_http.HttpTests.test_history_api) ... ok
+test_public_files_and_private_denial (test_http.HttpTests.test_public_files_and_private_denial) ... ok
+test_range_and_symlink (test_http.HttpTests.test_range_and_symlink) ... ok
+test_security_validation_and_errors (test_http.HttpTests.test_security_validation_and_errors) ... ok
+test_lifecycle_from_different_directory (test_maintenance.MaintenanceTests.test_lifecycle_from_different_directory) ... ok
+test_identity_check_rejects_unrelated_and_other_copy (test_startup.StartupTests.test_identity_check_rejects_unrelated_and_other_copy) ... ok
+test_real_launcher_from_another_working_directory (test_startup.StartupTests.test_real_launcher_from_another_working_directory) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 3.316s
+
+OK

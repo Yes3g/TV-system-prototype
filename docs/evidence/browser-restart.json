@@ -1,0 +1,7 @@
+{
+  "checks": [
+    "settings survive server and browser restart",
+    "history survives server and browser restart"
+  ],
+  "browser": "155.0.8059.40"
+}

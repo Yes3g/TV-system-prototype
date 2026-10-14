@@ -1,0 +1,18 @@
+{
+  "checks": [
+    "catalog loads through API, no JSON fallback",
+    "startup does not create watching history",
+    "settings saved in SQLite and restored on reload",
+    "profile isolation and rapid setting changes",
+    "real playback writes progress to the correct profile",
+    "switching profile while playing flushes the old profile",
+    "changing episode flushes old progress and completion is recorded",
+    "late settings response does not change another profile UI",
+    "search remains functional",
+    "server write failure is visible and rolls UI back",
+    "one-time legacy import is explicit and skips modified profiles",
+    "mobile viewport has no horizontal overflow",
+    "no uncaught JavaScript exceptions"
+  ],
+  "browser": "155.0.8059.40"
+}

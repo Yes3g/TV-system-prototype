@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1220 700" width="1220" height="700" role="img" aria-label="Vysílací plán">
+<rect width="100%" height="100%" fill="white"/>
+<style>text{font-family:Arial,sans-serif;fill:#172b40}.field{font-size:16px}.name{font-size:20px;font-weight:bold}.edge{stroke:#526d82;stroke-width:2;fill:none}</style>
+<text x="20" y="30" class="name">NetVision SQLite · Vysílací plán</text>
+<path class="edge" d="M860,128.0 H805.0 V128.0 H750"/>
+<text x="840" y="120.0" class="field">1</text>
+<text x="758" y="120.0" class="field">0..N</text>
+<path class="edge" d="M330,115.0 H385.0 V128.0 H440"/>
+<text x="337" y="107.0" class="field">1</text>
+<text x="391" y="120.0" class="field">0..N</text>
+<path class="edge" d="M595,196 L595,400"/>
+<text x="604" y="216" class="field">1</text>
+<text x="604" y="390" class="field">0..N</text>
+<rect x="20" y="60" width="310" height="110" rx="6" fill="#f5f8fb" stroke="#304c68"/>
+<text x="32" y="88" class="name">channels</text>
+<path d="M20,100 h310" stroke="#304c68"/>
+<text x="32" y="125" class="field">id [PK]</text>
+<text x="32" y="151" class="field">region [FK]</text>
+<rect x="440" y="60" width="310" height="136" rx="6" fill="#f5f8fb" stroke="#304c68"/>
+<text x="452" y="88" class="name">schedule_items</text>
+<path d="M440,100 h310" stroke="#304c68"/>
+<text x="452" y="125" class="field">id [PK]</text>
+<text x="452" y="151" class="field">channel_id [FK]</text>
+<text x="452" y="177" class="field">episode_id [FK]</text>
+<rect x="860" y="60" width="310" height="136" rx="6" fill="#f5f8fb" stroke="#304c68"/>
+<text x="872" y="88" class="name">episodes</text>
+<path d="M860,100 h310" stroke="#304c68"/>
+<text x="872" y="125" class="field">id [PK]</text>
+<text x="872" y="151" class="field">program_id [FK]</text>
+<text x="872" y="177" class="field">media_asset_id [FK]</text>
+<rect x="440" y="400" width="310" height="110" rx="6" fill="#f5f8fb" stroke="#304c68"/>
+<text x="452" y="428" class="name">schedule_days</text>
+<path d="M440,440 h310" stroke="#304c68"/>
+<text x="452" y="465" class="field">schedule_id [PK, FK]</text>
+<text x="452" y="491" class="field">day [PK]</text>
+<text x="20" y="654" class="field">PK = primární klíč; FK = cizí klíč; 1 = právě jeden; 0..N = nula až více; 0..1 = nejvýše jeden.</text>
+<text x="20" y="680" class="field">Zobrazeny klíče. Opakované entity označují stejné tabulky. Úplné atributy: schema.mmd a schema.sql.</text>
+</svg>

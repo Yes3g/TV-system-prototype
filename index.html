@@ -4,9 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>NetVision Prototype</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=20260609-subtitles">
   </head>
   <body>
+    <div class="storage-banner" role="status" aria-live="polite">
+      <span id="persistenceStatus">Connecting to NetVision…</span>
+      <button id="importLegacy" type="button" hidden>Import old browser settings</button>
+    </div>
     <main class="app-shell">
       <aside class="rail" aria-label="NetVision navigation">
         <div class="brand-mark">NV</div>
@@ -130,7 +134,7 @@
       </section>
     </main>
 
-    <script src="data/db.js"></script>
-    <script src="app.js"></script>
+    <script src="persistence.js"></script>
+    <script src="app.js?v=20260609-subtitles"></script>
   </body>
 </html>

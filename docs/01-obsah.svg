@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1640 730" width="1640" height="730" role="img" aria-label="Katalog a média">
+<rect width="100%" height="100%" fill="white"/>
+<style>text{font-family:Arial,sans-serif;fill:#172b40}.field{font-size:16px}.name{font-size:20px;font-weight:bold}.edge{stroke:#526d82;stroke-width:2;fill:none}</style>
+<text x="20" y="30" class="name">NetVision SQLite · Katalog a média</text>
+<path class="edge" d="M330,135.0 H385.0 V135.0 H440"/>
+<text x="337" y="127.0" class="field">1</text>
+<text x="391" y="127.0" class="field">0..N</text>
+<path class="edge" d="M1280,130.0 H1225.0 V148.0 H1170"/>
+<text x="1260" y="122.0" class="field">1</text>
+<text x="1178" y="140.0" class="field">0..N</text>
+<path class="edge" d="M750,135.0 H805.0 V148.0 H860"/>
+<text x="757" y="127.0" class="field">1</text>
+<text x="811" y="140.0" class="field">0..N</text>
+<path class="edge" d="M330,480.0 H385.0 V485.0 H440"/>
+<text x="337" y="472.0" class="field">1</text>
+<text x="391" y="477.0" class="field">0..N</text>
+<path class="edge" d="M595,190 L595,430"/>
+<text x="604" y="210" class="field">1</text>
+<text x="604" y="420" class="field">0..N</text>
+<path class="edge" d="M1280,130.0 H1225.0 V485.0 H1170"/>
+<text x="1260" y="122.0" class="field">1</text>
+<text x="1178" y="477.0" class="field">0..N</text>
+<path class="edge" d="M1435,180 L1435,430"/>
+<text x="1444" y="200" class="field">1</text>
+<text x="1444" y="420" class="field">0..N</text>
+<rect x="20" y="80" width="310" height="110" rx="6" fill="#f5f8fb" stroke="#304c68"/>
+<text x="32" y="108" class="name">channels</text>
+<path d="M20,120 h310" stroke="#304c68"/>
+<text x="32" y="145" class="field">id [PK]</text>
+<text x="32" y="171" class="field">region [FK]</text>
+<rect x="440" y="80" width="310" height="110" rx="6" fill="#f5f8fb" stroke="#304c68"/>
+<text x="452" y="108" class="name">programs</text>
+<path d="M440,120 h310" stroke="#304c68"/>
+<text x="452" y="145" class="field">id [PK]</text>
+<text x="452" y="171" class="field">channel_id [FK]</text>
+<rect x="860" y="80" width="310" height="136" rx="6" fill="#f5f8fb" stroke="#304c68"/>
+<text x="872" y="108" class="name">episodes</text>
+<path d="M860,120 h310" stroke="#304c68"/>
+<text x="872" y="145" class="field">id [PK]</text>
+<text x="872" y="171" class="field">program_id [FK]</text>
+<text x="872" y="197" class="field">media_asset_id [FK]</text>
+<rect x="1280" y="80" width="310" height="100" rx="6" fill="#f5f8fb" stroke="#304c68"/>
+<text x="1292" y="108" class="name">media_assets</text>
+<path d="M1280,120 h310" stroke="#304c68"/>
+<text x="1292" y="145" class="field">id [PK]</text>
+<rect x="20" y="430" width="310" height="100" rx="6" fill="#f5f8fb" stroke="#304c68"/>
+<text x="32" y="458" class="name">genres</text>
+<path d="M20,470 h310" stroke="#304c68"/>
+<text x="32" y="495" class="field">id [PK]</text>
+<rect x="440" y="430" width="310" height="110" rx="6" fill="#f5f8fb" stroke="#304c68"/>
+<text x="452" y="458" class="name">program_genres</text>
+<path d="M440,470 h310" stroke="#304c68"/>
+<text x="452" y="495" class="field">program_id [PK, FK]</text>
+<text x="452" y="521" class="field">genre_id [PK, FK]</text>
+<rect x="860" y="430" width="310" height="110" rx="6" fill="#f5f8fb" stroke="#304c68"/>
+<text x="872" y="458" class="name">subtitle_tracks</text>
+<path d="M860,470 h310" stroke="#304c68"/>
+<text x="872" y="495" class="field">media_id [PK, FK]</text>
+<text x="872" y="521" class="field">position [PK]</text>
+<rect x="1280" y="430" width="310" height="110" rx="6" fill="#f5f8fb" stroke="#304c68"/>
+<text x="1292" y="458" class="name">media_audio_options</text>
+<path d="M1280,470 h310" stroke="#304c68"/>
+<text x="1292" y="495" class="field">media_id [PK, FK]</text>
+<text x="1292" y="521" class="field">option [PK]</text>
+<text x="20" y="684" class="field">PK = primární klíč; FK = cizí klíč; 1 = právě jeden; 0..N = nula až více; 0..1 = nejvýše jeden.</text>
+<text x="20" y="710" class="field">Zobrazeny klíče. Opakované entity označují stejné tabulky. Úplné atributy: schema.mmd a schema.sql.</text>
+</svg>

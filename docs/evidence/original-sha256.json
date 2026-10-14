@@ -1,0 +1,14 @@
+{
+  "index.html": "0d8f930d2ca94980b89ecad037ac064ea4759c2a4a286e4e562d39f948298adc",
+  "styles.css": "6a37d3a9a87df7c86ae234e70cafb1605fe11407e5437649ed382e5962c226e2",
+  "README.md": "fddc9b4fe2afffa27aa3da89caa31380bfb75f68c69b00f653933739428d3863",
+  "Start NetVision.command": "f59dec70c58ac58a147afec97327eccc3ac69d09e59a7cd72f26a0bc1b81a43f",
+  "app.js": "8cf63bf8220c9c1a2e6542992b04b56d1b19e86ec96e646fe9561e2a58c84c07",
+  "start_server.py": "a0c46e5f9e7d43604bef71ef537669578680f9f5bce199ffc68373c7e0b08517",
+  "captions/en.vtt": "011e7eea32d37d4ec2c4e71832f9317d5a90549e2e2285177ed69da348aa080b",
+  "captions/cs.vtt": "f5bc6a23d6dd54e64e3eca93124cb02cd2bc916eb14fc161019eea4bcbd74dfa",
+  "data/db.json": "9bf0f426f6ace3f2cdce7c5a4fa6eb7658884bfe0a1615ed74dbcc7fac05c7f1",
+  "data/db.js": "8d1b5fb53cf1d5a8407d99579f2235538cd48d9c7c3eedd493e8741dde4f44fd",
+  "NetVision.app/Contents/Info.plist": "3e8d603f99becd2b39d39571a639335e2b37e0c665fa5cf7df0b5eefddcb1369",
+  "NetVision.app/Contents/MacOS/NetVision": "155dcb2fbd7da696b450eb6d0022d2314e52468c66d160f14931554161b7b54b"
+}

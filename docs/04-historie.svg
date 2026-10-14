@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1220 760" width="1220" height="760" role="img" aria-label="Historie a přehrávací relace">
+<rect width="100%" height="100%" fill="white"/>
+<style>text{font-family:Arial,sans-serif;fill:#172b40}.field{font-size:16px}.name{font-size:20px;font-weight:bold}.edge{stroke:#526d82;stroke-width:2;fill:none}</style>
+<text x="20" y="30" class="name">NetVision SQLite · Historie a přehrávací relace</text>
+<path class="edge" d="M860,308.0 H805.0 V115.0 H750"/>
+<text x="840" y="300.0" class="field">1</text>
+<text x="758" y="107.0" class="field">0..N</text>
+<path class="edge" d="M330,290.0 H385.0 V115.0 H440"/>
+<text x="337" y="282.0" class="field">1</text>
+<text x="391" y="107.0" class="field">0..N</text>
+<path class="edge" d="M860,308.0 H805.0 V528.0 H750"/>
+<text x="840" y="300.0" class="field">1</text>
+<text x="758" y="520.0" class="field">0..N</text>
+<path class="edge" d="M330,290.0 H385.0 V528.0 H440"/>
+<text x="337" y="282.0" class="field">1</text>
+<text x="391" y="520.0" class="field">0..N</text>
+<rect x="20" y="240" width="310" height="100" rx="6" fill="#f5f8fb" stroke="#304c68"/>
+<text x="32" y="268" class="name">users</text>
+<path d="M20,280 h310" stroke="#304c68"/>
+<text x="32" y="305" class="field">id [PK]</text>
+<rect x="440" y="60" width="310" height="110" rx="6" fill="#f5f8fb" stroke="#304c68"/>
+<text x="452" y="88" class="name">watch_history</text>
+<path d="M440,100 h310" stroke="#304c68"/>
+<text x="452" y="125" class="field">user_id [PK, FK]</text>
+<text x="452" y="151" class="field">episode_id [PK, FK]</text>
+<rect x="860" y="240" width="310" height="136" rx="6" fill="#f5f8fb" stroke="#304c68"/>
+<text x="872" y="268" class="name">episodes</text>
+<path d="M860,280 h310" stroke="#304c68"/>
+<text x="872" y="305" class="field">id [PK]</text>
+<text x="872" y="331" class="field">program_id [FK]</text>
+<text x="872" y="357" class="field">media_asset_id [FK]</text>
+<rect x="440" y="460" width="310" height="136" rx="6" fill="#f5f8fb" stroke="#304c68"/>
+<text x="452" y="488" class="name">playback_sessions</text>
+<path d="M440,500 h310" stroke="#304c68"/>
+<text x="452" y="525" class="field">id [PK]</text>
+<text x="452" y="551" class="field">user_id [FK]</text>
+<text x="452" y="577" class="field">episode_id [FK]</text>
+<text x="20" y="714" class="field">PK = primární klíč; FK = cizí klíč; 1 = právě jeden; 0..N = nula až více; 0..1 = nejvýše jeden.</text>
+<text x="20" y="740" class="field">Zobrazeny klíče. Opakované entity označují stejné tabulky. Úplné atributy: schema.mmd a schema.sql.</text>
+</svg>
