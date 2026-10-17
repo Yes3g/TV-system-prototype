@@ -1,96 +1,41 @@
-# NetVision SQLite
+## Doporučené spuštění na macOS
 
-Lokální prototyp NetVision s relační databází. Jde o novou vývojovou iteraci navazující na původní JSON prototyp. Původní projekt ani bakalářská práce nebyly touto úpravou přepsány.
+Dvojklikem otevřete **NetVision.app** pro tento Mac nebo **NetVision LAN.app** pro telefon/tablet. Obě aplikace spusťte přímo z rozbalené složky; nepřesouvejte je samostatně. Nevyvolávají interaktivní zsh, takže se vyhnou chybě compinit z Terminálu.
 
-## Spuštění
+LAN aplikace otevře stránku a zobrazí adresu pro Safari na telefonu. Dialog nechte otevřený; tlačítko **Zastavit server** server vypne. Ostatní spouštěče níže jsou alternativní.
 
-Vyžaduje Python 3.10 nebo novější s modulem sqlite3. Aplikace nemá žádné závislosti instalované pomocí pip. ZIP nejprve rozbalte do zapisovatelné složky.
+# NetVision — kompletní pracovní verze
 
-```sh
-python3 start_server.py
-```
+Multimediální prototyp s webovým rozhraním, Python serverem a SQLite databází. Zahrnuje mobilní rozložení a volitelný přístup přes místní síť. Dřívější samostatné HTML není potřeba.
 
-Server automaticky vybere lokální adresu/port a otevře prohlížeč. Nechte terminál otevřený; Ctrl+C server ukončí. Na macOS lze použít `Start NetVision.command`. `NetVision.app` spouští server na pozadí, jeho log je ve `var/server.log`. Chcete-li snadno řídit zastavení serveru, použijte terminálovou variantu. Na Windows lze použít `py -3 start_server.py`; Windows ani iOS nebyly v této iteraci prakticky ověřeny.
+## Spuštění na počítači
+Požadavky: Python 3.10+ se sqlite3, aktuální prohlížeč. Externí Python balíčky nejsou potřeba. Windows 7 není podporovaná cílová platforma.
 
-Balíček obsahuje čistě importovanou databázi `var/netvision.sqlite3` s původními demonstračními daty. Pokud soubor chybí, na první spuštění vznikne automaticky. Další spuštění zachovávají změny. Proměnná `NETVISION_DB` umožňuje jinou cestu; relativní cesta se vyhodnocuje vůči složce projektu, nikoli pracovnímu adresáři terminálu. `NETVISION_NO_BROWSER=1` potlačí automatické otevření prohlížeče.
+macOS: spusťte `Start NetVision.command`, nebo ve složce `python3 start_server.py`.
+Windows: spusťte `Start NetVision Windows.bat`, nebo `py -3 start_server.py`.
+Ponechte server spuštěný. Pokud dvojklik na Macu přeruší vlastní chyba zsh compinit, dokončete dotaz shellu a spusťte `/bin/bash` s cestou ke spouštěči v uvozovkách.
 
-Přímé otevření `index.html` ani Live Server databázovou verzi nespustí. Aplikace vyžaduje vlastní Python server. Výchozí vazba je na loopback; služba není vystavena do sítě. Veřejné nasazení není součástí projektu.
+## Telefon a tablet
+1. Na Macu spusťte `Start NetVision LAN.command`.
+2. Připojte telefon ke stejné Wi-Fi a otevřete vypsanou adresu v Safari, například `http://192.168.1.20:4174/`.
+3. Mac i server ponechte zapnutý. Server vypnete Ctrl+C. HTML neotevírejte jako náhled přílohy.
 
-## Co se ukládá
+Spouštěč vybere první dostupné rozhraní en0–en2. Jinou adresu lze zadat ručně: `python3 start_server.py --lan 192.168.1.20`. Na Windows použijte `py -3` a vlastní IPv4 adresu z `ipconfig`. Při obsazeném portu přidejte `--port 4180`. Firewall musí umožnit spojení v soukromé síti; hostovská Wi-Fi může zařízení vzájemně oddělovat.
 
-- SQLite obsahuje katalog, profily, vztahy, nastavení a historii sledování.
-- Nastavení titulků, zvukové volby a autoplay se zapisují přes API. Potvrzení „Settings saved“ znamená potvrzený databázový zápis. Při chybě se zobrazí hlášení a rozhraní se vrátí k posledním potvrzeným hodnotám.
-- Vybraný profil a kanál zůstávají v `localStorage` jako stav konkrétního prohlížeče. Nejde o autentizaci.
-- Historie ukládá poslední pozici přehrávače, dokončení a čas posledního zápisu pro každou dvojici profil–epizoda. Pozice není součtem skutečně sledovaných sekund. Dokončení odpovídá události `ended`, nevypovídá o zhlédnutí všech částí videa.
-- Zápis historie probíhá při skutečném spuštění, přibližně každých 5 sekund přehrávání, při pauze, dokončení a změně profilu/epizody. Samotné načtení stránky historii nevytváří.
-- Při náhlém ukončení nebo ztrátě spojení může poslední neodeslaný úsek chybět. Přesun stránky do pozadí vyvolá doplňkový pokus o zápis, nikoli záruku doručení.
-- Automatické pokračování z uložené pozice ani doporučování podle historie tato verze nezavádí.
+LAN je pro testování v důvěryhodné síti. Připojení uživatelé sdílejí profily, nastavení i historii; výběr profilu není autentizace. Server není určen pro veřejný internet. GitHub Pages tento Python/SQLite backend nespustí.
 
-`data/db.json` slouží výhradně jako výchozí importní soubor; `data/db.js` je zachován pouze jako historický podklad. Ani jeden soubor není veřejně poskytován ani načítán rozhraním.
+## Databáze a média
+`var/netvision.sqlite3` vznikne při prvním spuštění z `data/db.json`. Balíček neobsahuje provozní databázi. Profily a výchozí historie jsou ukázková seed data. Nastavení a nová historie se ukládají na serveru. Prohlížeč si pamatuje vybraný profil/kanál, pokud to jeho úložiště dovoluje.
 
-## Starší nastavení prohlížeče
+Archivní videa nejsou přibalena. Jejich cesty jsou relativní `media/nazev.mp4`. Chybějící video zobrazí chybu; katalog dále funguje. Pro externí demonstrační video vyberte Czech Television 1 a klepněte na přehrávání. Dostupnost externích videí závisí na poskytovateli a internetu.
 
-Pokud ve stejném webovém originu existuje původní klíč `netvision-prototype-state`, zobrazí se tlačítko pro jednorázový import. Import vyžaduje potvrzení. Profily změněné v databázi se přeskočí; původní hodnoty je nepřepíšou. Úspěch se označí v databázi, takže další prohlížeč nemůže import automaticky opakovat. Změna hostitele nebo portu znamená jiný origin; staré nastavení odtud prohlížeč automaticky zpřístupnit nemůže.
+Vlastní video vložte na serveru do `media/`; záznam případně upravte příkazem `python3 manage.py set-media MEDIA_ID media/video.mp4`. Absolutní `file://` cesty nejsou přenositelné na telefon. Zvuková volba je demonstrační stav. Doporučování používá váhy žánrů a oblíbené pořady, nikoli učený AI model.
 
-## Videa
+## GitHub
+Nahrajte obsah této složky. `.gitignore` vynechává databázi, logy, lokální videa a dočasné soubory. Zkontrolujte `git status` před commitem. Licence nebyla zvolena za autora; případnou licenci doplňte podle svého rozhodnutí.
 
-Součástí původního seed souboru je 16 absolutních `file://` cest do autorova Downloads a 4 vzdálené HTTPS adresy. Lokální videa nejsou přibalena. Databázový import tyto údaje zachovává; nedokládá jejich dostupnost. Při neplatné lokální cestě rozhraní zobrazí vysvětlení. Vzdálená média vyžadují dostupnou síť a jejich poskytovatele.
+## Testy
+`python3 -m unittest discover -s tests -v` a `node tests/regression.cjs`.
+Kompletní sada: `python3 tests/verify.py`; browserová část vyžaduje Node, Playwright a Chromium. Cesty lze nastavit pomocí `NODE`, `PLAYWRIGHT_MODULE`, `CHROME_EXECUTABLE`; výstupy pomocí `NETVISION_TEST_ARTIFACTS` (výchozí `test-results/`).
 
-Chcete-li zpřístupnit vlastní oprávněně užívané video:
-
-1. Umístěte jej do složky `media/` v projektu, například `media/film.mp4`.
-2. Zjistěte ID příslušného média v původním katalogu.
-3. Nastavte HTTP cestu do databáze:
-
-```sh
-python3 manage.py set-media media-service-mbrs media/film.mp4
-```
-
-4. Obnovte stránku. Soubor se poskytuje přes HTTP s podporou rozsahových požadavků pro posun videa. Není nutné vystavovat Downloads ani ukládat video jako databázový BLOB.
-
-## Záloha, obnova a reset
-
-```sh
-python3 manage.py check
-python3 manage.py backup /cesta/k/netvision-zaloha.sqlite3
-```
-
-Záloha používá SQLite backup API. Existující cílovou zálohu nepřepisuje. Zálohujte zvlášť také vlastní média; databáze obsahuje pouze odkazy.
-
-Před obnovou nebo resetem zastavte všechny instance serveru pracující s touto databází. Tyto operace jsou určeny pro údržbu mimo provoz, nikoli pro souběh s otevřeným serverem.
-
-```sh
-python3 manage.py restore /cesta/k/netvision-zaloha.sqlite3 --yes
-python3 manage.py reset --yes
-```
-
-Obě operace nejprve vytvoří časově označenou zálohu existující databáze. Bez `--yes` se nic nenahrazuje. Obnova ověřuje verzi, integritu a cizí klíče. Reset založí novou databázi z původního JSON; odstraní tak dosavadní změny z aktivní databáze. Při chybě nevynucujte smazání databáze; přečtěte hlášení a použijte ověřenou zálohu.
-
-## Vývoj a testy
-
-Z kořene projektu:
-
-```sh
-python3 -m unittest discover -s tests -v
-node tests/regression.cjs
-```
-
-První příkaz zahrnuje databázi, API a údržbu. HTTP testy potřebují možnost otevřít lokální port. Regresní test porovnává doporučování, regiony, vazby epizod, pořadí výchozího obsahu a vysílací časy s výsledky původního kódu.
-
-Volitelné testy skutečného prohlížeče vyžadují Node, Playwright a Chromium/Chrome (pouze vývojové nástroje, nikoli závislosti aplikace):
-
-```sh
-python3 -m tests.run_browser
-```
-
-Podle prostředí lze nastavit `NODE`, `PLAYWRIGHT_MODULE`, `CHROME_EXECUTABLE` a `NETVISION_TEST_ARTIFACTS`. Test používá dočasnou databázi a vytváří vlastní krátké WebM video, které po skončení odstraní. Nečte osobní videa. Snímky zachycují testovací data, nikoli původní multimediální obsah.
-
-## Dokumentace
-
-- [API a datová vrstva](docs/API.md)
-- [Datový model a ERD](docs/ERD.md)
-- [Nová vývojová iterace pro bakalářskou práci](docs/ITERACE_DATABAZE.md)
-- [Výsledky ověření](docs/OVERENI.md)
-- [Přehled změn](docs/ZMENY.md)
-
-Známá omezení původního prototypu zůstávají: zvuková volba mění nastavení a popisek, nikoli skutečnou zvukovou stopu; časové označení pořadu není živý přenos; doporučení jsou pravidlová. Vysílací plán stále používá místní čas prohlížeče a původní logiku bez intervalů přes půlnoc. Levé navigační ikony zůstávají demonstrační. SQLite a lokální API samy o sobě nepředstavují produkční zabezpečení ani škálovatelnou televizní službu.
+Aktuální výsledky: `docs/AKTUALNI-VERZE.md`. Starší dokumentace/evidence v docs zachycuje předchozí databázovou iteraci; aktuální způsob spuštění popisuje tento README. Údržba a zálohování: `python3 manage.py --help`.

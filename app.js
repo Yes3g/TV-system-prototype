@@ -398,6 +398,8 @@ async function init() {
   bindControls();
   const firstEpisode = firstPlayableEpisode(state.activeChannelId);
   if (firstEpisode) playEpisode(firstEpisode.id, "startup");
+  render();
+  document.getElementById("startupHelp").hidden = true;
   setInterval(render, 15000);
 }
 

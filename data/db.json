@@ -192,7 +192,7 @@
     {
       "id": "media-service-mbrs",
       "kind": "video",
-      "src": "file:///Users/Yes3g/Downloads/service-mbrs-ntscrm-00021068-00021068.mp4",
+      "src": "media/service-mbrs-ntscrm-00021068-00021068.mp4",
       "poster": "",
       "durationSeconds": 7200,
       "audioOptions": [
@@ -215,7 +215,7 @@
     {
       "id": "media-moviola-176-r1",
       "kind": "video",
-      "src": "file:///Users/Yes3g/Downloads/movio-moviola-176-r1.mp4",
+      "src": "media/movio-moviola-176-r1.mp4",
       "poster": "",
       "durationSeconds": 1500,
       "audioOptions": [
@@ -238,7 +238,7 @@
     {
       "id": "media-moviola-176-r2",
       "kind": "video",
-      "src": "file:///Users/Yes3g/Downloads/movio-moviola-176-r2.mp4",
+      "src": "media/movio-moviola-176-r2.mp4",
       "poster": "",
       "durationSeconds": 1500,
       "audioOptions": [
@@ -261,7 +261,7 @@
     {
       "id": "media-moviola-176-r3",
       "kind": "video",
-      "src": "file:///Users/Yes3g/Downloads/movio-moviola-176-r3.mp4",
+      "src": "media/movio-moviola-176-r3.mp4",
       "poster": "",
       "durationSeconds": 1500,
       "audioOptions": [
@@ -284,7 +284,7 @@
     {
       "id": "media-moviola-176-r4",
       "kind": "video",
-      "src": "file:///Users/Yes3g/Downloads/movio-moviola-176-r4.mp4",
+      "src": "media/movio-moviola-176-r4.mp4",
       "poster": "",
       "durationSeconds": 1500,
       "audioOptions": [
@@ -307,7 +307,7 @@
     {
       "id": "media-moviola-176-r5",
       "kind": "video",
-      "src": "file:///Users/Yes3g/Downloads/movio-moviola-176-r5.mp4",
+      "src": "media/movio-moviola-176-r5.mp4",
       "poster": "",
       "durationSeconds": 1500,
       "audioOptions": [
@@ -330,7 +330,7 @@
     {
       "id": "media-moviola-176-r6",
       "kind": "video",
-      "src": "file:///Users/Yes3g/Downloads/movio-moviola-176-r6.mp4",
+      "src": "media/movio-moviola-176-r6.mp4",
       "poster": "",
       "durationSeconds": 1500,
       "audioOptions": [
@@ -353,7 +353,7 @@
     {
       "id": "media-moviola-176-r7",
       "kind": "video",
-      "src": "file:///Users/Yes3g/Downloads/movio-moviola-176-r7.mp4",
+      "src": "media/movio-moviola-176-r7.mp4",
       "poster": "",
       "durationSeconds": 1500,
       "audioOptions": [
@@ -376,7 +376,7 @@
     {
       "id": "media-111-h-1101-r1",
       "kind": "video",
-      "src": "file:///Users/Yes3g/Downloads/111-h-1101-r1.mp4",
+      "src": "media/111-h-1101-r1.mp4",
       "poster": "",
       "durationSeconds": 3000,
       "audioOptions": [
@@ -399,7 +399,7 @@
     {
       "id": "media-111-h-1101-r2",
       "kind": "video",
-      "src": "file:///Users/Yes3g/Downloads/111-h-1101-r2.mp4",
+      "src": "media/111-h-1101-r2.mp4",
       "poster": "",
       "durationSeconds": 3000,
       "audioOptions": [
@@ -422,7 +422,7 @@
     {
       "id": "media-111-h-1101-r3",
       "kind": "video",
-      "src": "file:///Users/Yes3g/Downloads/111-h-1101-r3.mp4",
+      "src": "media/111-h-1101-r3.mp4",
       "poster": "",
       "durationSeconds": 1500,
       "audioOptions": [
@@ -445,7 +445,7 @@
     {
       "id": "media-111-h-1102-r1",
       "kind": "video",
-      "src": "file:///Users/Yes3g/Downloads/111-h-1102-r1.mp4",
+      "src": "media/111-h-1102-r1.mp4",
       "poster": "",
       "durationSeconds": 3000,
       "audioOptions": [
@@ -468,7 +468,7 @@
     {
       "id": "media-111-h-1102-r2",
       "kind": "video",
-      "src": "file:///Users/Yes3g/Downloads/111-h-1102-r2.mp4",
+      "src": "media/111-h-1102-r2.mp4",
       "poster": "",
       "durationSeconds": 3000,
       "audioOptions": [
@@ -491,7 +491,7 @@
     {
       "id": "media-111-h-1102-r3",
       "kind": "video",
-      "src": "file:///Users/Yes3g/Downloads/111-h-1102-r3.mp4",
+      "src": "media/111-h-1102-r3.mp4",
       "poster": "",
       "durationSeconds": 3000,
       "audioOptions": [
@@ -514,7 +514,7 @@
     {
       "id": "media-111-h-1102-r4",
       "kind": "video",
-      "src": "file:///Users/Yes3g/Downloads/111-h-1102-r4.mp4",
+      "src": "media/111-h-1102-r4.mp4",
       "poster": "",
       "durationSeconds": 3000,
       "audioOptions": [
@@ -537,7 +537,7 @@
     {
       "id": "media-111-h-1102-r5",
       "kind": "video",
-      "src": "file:///Users/Yes3g/Downloads/111-h-1102-r5.mp4",
+      "src": "media/111-h-1102-r5.mp4",
       "poster": "",
       "durationSeconds": 2400,
       "audioOptions": [

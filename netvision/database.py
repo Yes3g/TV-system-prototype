@@ -82,11 +82,11 @@ def initialize(path=None, seed_path=SEED):
                 raise RuntimeError('Unsupported or incomplete database schema; explicit migration is required. No data were overwritten.')
             # executescript implicitly commits: execute complete statements individually instead.
             statement=''
-            for line in SCHEMA.read_text().splitlines(True):
+            for line in SCHEMA.read_text(encoding='utf-8').splitlines(True):
                 statement+=line
                 if sqlite3.complete_statement(statement):
                     db.execute(statement); statement=''
-            original=json.loads(Path(seed_path).read_text())
+            original=json.loads(Path(seed_path).read_text(encoding='utf-8'))
             seed(db,original)
             from .repository import catalog
             restored=catalog(db,include_meta=False)

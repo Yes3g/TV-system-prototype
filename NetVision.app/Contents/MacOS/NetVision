@@ -1,10 +1,15 @@
 #!/bin/bash
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 APP_ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
-if command -v python3 >/dev/null 2>&1; then
-  python3 "$APP_ROOT/start_server.py" --background
-  if [ "$?" -ne 0 ]; then
-    osascript -e 'display dialog "NetVision SQLite could not start. See var/server.log in the project directory. A Python server is required." buttons {"OK"} default button "OK"'
-  fi
+mkdir -p "$APP_ROOT/var"
+if python3 "$APP_ROOT/start_server.py" --background >>"$APP_ROOT/var/launcher.log" 2>&1; then
+  server_url=$(cat "$APP_ROOT/var/.netvision-url")
+  /usr/bin/open "$server_url"
+  /usr/bin/osascript - "$server_url" <<'APPLESCRIPT'
+on run argv
+  display dialog ("NetVision běží. Pokud se prohlížeč neotevřel, zkopírujte tuto adresu do Safari nebo Chrome:") default answer (item 1 of argv) buttons {"OK"} default button "OK"
+end run
+APPLESCRIPT
 else
-  osascript -e 'display dialog "Python 3.10 or newer is required. Install Python, then start NetVision again." buttons {"OK"} default button "OK"'
+  /usr/bin/osascript -e 'display dialog "NetVision se nepodařilo spustit. Podrobnosti jsou ve var/launcher.log a var/server.log ve složce aplikace." buttons {"OK"}'
 fi

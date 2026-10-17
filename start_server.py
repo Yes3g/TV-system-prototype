@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Start the local SQLite-backed NetVision application."""
 import argparse
+import ipaddress
 import json
 import os
 from pathlib import Path
@@ -33,15 +34,20 @@ def responds(url):
 
 
 def open_browser(url):
-    if not os.environ.get('NETVISION_NO_BROWSER'):webbrowser.open(url)
+    if os.environ.get('NETVISION_NO_BROWSER'):return
+    if sys.platform == 'darwin':
+        subprocess.run(['/usr/bin/open', url], check=True)
+    else:webbrowser.open(url)
 
 
-def serve(host,port):
+def serve(host,port,lan=False):
     db_path=initialize()
-    server=make_server(host,port,db_path)
+    server=make_server(host,port,db_path,allowed_hosts=(host,) if lan else ())
     url=url_for(host,server.server_port)
-    STATE.parent.mkdir(exist_ok=True);STATE.write_text(url)
+    if not lan:
+        STATE.parent.mkdir(exist_ok=True);STATE.write_text(url)
     print(f'NetVision SQLite: {url}\nDatabase: {db_path}\nKeep this server running. Ctrl+C stops it.',flush=True)
+    if lan:print('Phone/tablet: open the URL above in Safari on the same Wi-Fi. Profiles are shared; this is a local prototype, not a public service.',flush=True)
     open_browser(url)
     try:server.serve_forever()
     except KeyboardInterrupt:pass
@@ -75,8 +81,15 @@ def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--background',action='store_true')
     parser.add_argument('--serve',nargs=2,metavar=('HOST','PORT'))
+    parser.add_argument('--lan',metavar='IP',help='Bind to the IPv4 address of this computer for local-network testing')
+    parser.add_argument('--port',type=int,default=4174)
     args=parser.parse_args()
+    if args.lan and (args.background or args.serve):parser.error('--lan cannot be combined with --background or --serve')
     try:
+        if args.lan:
+            address=ipaddress.IPv4Address(args.lan)
+            if not address.is_private or address.is_loopback or address.is_unspecified or address.is_multicast:parser.error('--lan requires the private IPv4 address assigned to this computer')
+            return serve(str(address),args.port,lan=True)
         if args.background:return background()
         if args.serve:
             host,port=args.serve

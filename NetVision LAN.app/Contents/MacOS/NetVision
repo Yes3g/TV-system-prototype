@@ -1,0 +1,8 @@
+#!/bin/bash
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+APP_ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
+if command -v python3 >/dev/null 2>&1; then
+  python3 "$APP_ROOT/launch_lan_macos.py"
+else
+  /usr/bin/osascript -e 'display dialog "Nainstalujte Python 3.10 nebo novější." buttons {"OK"}'
+fi

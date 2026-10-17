@@ -1,4 +1,4 @@
-"""Loopback HTTP API and allowlisted public files; no database downloads."""
+"""Local HTTP API and allowlisted public files; no database downloads."""
 import json
 import hashlib
 import mimetypes
@@ -39,6 +39,7 @@ class Handler(BaseHTTPRequestHandler):
     def authority(self):
         host=self.headers.get('Host','')
         allowed={f'127.0.0.1:{self.server.server_port}',f'localhost:{self.server.server_port}',f'[::1]:{self.server.server_port}'}
+        allowed.update(f'{ip}:{self.server.server_port}' for ip in self.server.allowed_hosts)
         if host not in allowed:raise repo.ApiError(403,'Invalid Host')
         origin=self.headers.get('Origin')
         if origin and origin!='http://'+host:raise repo.ApiError(403,'Cross-origin request rejected')
@@ -151,12 +152,13 @@ class LocalServer(ThreadingHTTPServer):
     daemon_threads=True
 
 
-def make_server(host,port,path):
+def make_server(host,port,path,allowed_hosts=()):
     cls=LocalServer
     if ':' in host:
         class IPv6Server(LocalServer):address_family=socket.AF_INET6
         cls=IPv6Server
     server=cls((host,port),Handler)
+    server.allowed_hosts=tuple(allowed_hosts)
     server.db_path=Path(path)
     server.csrf_token=secrets.token_urlsafe(32)
     return server
